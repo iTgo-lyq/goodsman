@@ -1,0 +1,7 @@
+.search :global(.arco-input-inner-wrapper) {
+  border-radius: 16px;
+}
+
+.search :global(svg) {
+  font-size: 16px
+}

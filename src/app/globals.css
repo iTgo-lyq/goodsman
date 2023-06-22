@@ -1,9 +1,7 @@
-@import "@arco-design/web-react/dist/css/arco.css";
-
-@tailwind base;
+/* @tailwind base; */
 @tailwind components;
 @tailwind utilities;
-@tailwind variants;
+@import "@arco-design/web-react/dist/css/arco.min.css";
 
 @layer components {
   .full {
@@ -13,12 +11,44 @@
   .absolute-cover {
     @apply absolute w-full h-full left-0 top-0;
   }
-  
+
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+
   .flex-row-center {
     @apply flex flex-row items-center;
+  }
+
+  .flex-row-stretch {
+    @apply flex flex-row items-stretch;
   }
 
   .flex-col-center {
     @apply flex flex-col items-center;
   }
+}
+
+body {
+  background-color: var(--color-bg-1);
+  color: var(--color-text-1);
+}
+
+.i-scroll::-webkit-scrollbar {
+  width: 12px;
+}
+
+.i-scroll::-webkit-scrollbar-track-piece {
+  background-color: var(--color-bg-2);
+}
+
+.i-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--color-text-3);
+  border: 4px solid transparent;
+  background-clip: padding-box;
+  border-radius: 7px;
+}
+
+.arco-form-item-symbol > svg {
+  display: inline-block;
 }
