@@ -1,0 +1,27 @@
+.main-button {
+  color: white !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .main-button {
+    background: linear-gradient(to left, #3d85ccee 0%, #5ca1e5ee 100%);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .main-button {
+    background: linear-gradient(to left, #3d85cc 0%, #5ca1e5 100%);
+  }
+}
+
+body[arco-theme="dark"] .main-button {
+  background: linear-gradient(to left, #3d85ccee 0%, #5ca1e5ee 100%);
+}
+
+body[arco-theme="light"] .main-button {
+  background: linear-gradient(to left, #3d85cc 0%, #5ca1e5 100%);
+}
+
+.link-input-area :global(.arco-input-tag-view) {
+  max-height: none;
+}

@@ -1,9 +1,9 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 import { cookies } from "next/headers";
 import { normalizeMenuCollapsed, normalizeTheme } from "@/utils";
 
-import Script from "next/script";
 import Link from "next/link";
+import NextTopLoader from "nextjs-toploader";
 import {
   Layout,
   Button,
@@ -13,6 +13,7 @@ import {
   IconCommon,
   IconFile,
   IconApps,
+  IconCopyright,
 } from "@arco-design/web-react/server";
 import {
   Menu,
@@ -39,7 +40,7 @@ const ROUTES = [
   {
     id: "settings",
     icon: <IconSettings />,
-    content: "商品配置",
+    content: "搬家配置",
   },
   {
     id: "records",
@@ -75,11 +76,8 @@ export default function RootLayout(props: PropsWithChildren) {
         {/* <Script strategy="beforeInteractive" src="/js/tailwind-theme.js" /> */}
       </head>
 
-      <body
-        className="w-screen h-screen overflow-hidden"
-        arco-theme={theme}
-        tw-theme={theme}
-      >
+      <body className="w-screen h-screen overflow-hidden" arco-theme={theme}>
+        <NextTopLoader />
         <Layout className="full">
           <Navbar />
           <Layout className="flex-1 overflow-hidden" hasSider>
@@ -110,9 +108,13 @@ export default function RootLayout(props: PropsWithChildren) {
                 />
               </form>
             </LayoutSider>
-            <Layout.Content className="p-6 bg-[var(--color-fill-2)] overflow-y-auto i-scroll">
+            <Layout.Content className="p-6 bg-[var(--color-fill-2)] overflow-y-auto i-scroll min-h-full flex flex-col">
               <BreadcrumbGroup items={ROUTES} />
               {props.children}
+              <div className="flex-grow"></div>
+              <Layout.Footer className="mt-6 flex-center">
+                <IconCopyright className="mr-2" /> 傻大黑粗
+              </Layout.Footer>
             </Layout.Content>
           </Layout>
         </Layout>

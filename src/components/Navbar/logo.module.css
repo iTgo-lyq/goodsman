@@ -1,0 +1,27 @@
+@media (prefers-color-scheme: dark) {
+  .logo-light {
+    display: none;
+  }
+}
+
+body[arco-theme="dark"] .logo-light {
+  display: none;
+}
+
+body[arco-theme="dark"] .logo-dark {
+  display: block;
+}
+
+@media (prefers-color-scheme: light) {
+  .logo-dark {
+    display: none;
+  }
+}
+
+body[arco-theme="light"] .logo-dark {
+  display: none;
+}
+
+body[arco-theme="light"] .logo-light {
+  display: block;
+}

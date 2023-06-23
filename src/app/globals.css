@@ -1,7 +1,8 @@
-/* @tailwind base; */
+@import "@arco-design/web-react/dist/css/arco.min.css";
+
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "@arco-design/web-react/dist/css/arco.min.css";
 
 @layer components {
   .full {
@@ -26,6 +27,10 @@
 
   .flex-col-center {
     @apply flex flex-col items-center;
+  }
+  
+  .flex-col-start {
+    @apply flex flex-col items-start;
   }
 }
 

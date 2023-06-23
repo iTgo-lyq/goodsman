@@ -6,10 +6,11 @@ import {
   FocusEvent,
   useCallback,
 } from "react";
+import { useRouter } from "next/navigation";
+
 import Input from "@arco-design/web-react/es/Input";
 
 import style from "./search.module.css";
-import { useRouter } from "next/navigation";
 
 export default function Search(
   props: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
