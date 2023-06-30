@@ -2,9 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import style from "./logo.module.css";
 
-export default function Logo() {
+export default function Logo(props: { className?: string }) {
   return (
-    <Link href="/">
+    <Link href="/" {...props}>
       <Image
         className={style["logo-light"]}
         src="/img/logo_light.png"

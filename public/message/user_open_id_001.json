@@ -1,26 +1,58 @@
 [
   {
-    "id": 3,
+    "id": "3",
+    "avatar": "/img/staff_avatar.png",
+    "title": "",
+    "subTitle": "",
     "content": "搬运次数即将耗尽, 现在充值立刻享受八折福利!",
-    "createAt": "06/25/2023 23:34:18",
-    "readAt": "06/25/2023 23:34:18"
+    "time": "06/25/2023 23:34:18",
+    "tag": {
+      "text": "",
+      "color": ""
+    },
+    "status": 1,
+    "readAt": "06/30/2023 19:58:11"
   },
   {
-    "id": 2,
+    "id": "2",
+    "avatar": "/img/staff_avatar.png",
+    "title": "",
+    "subTitle": "",
     "content": "尊敬的客户, 由于系统发生错误, 目前已补偿您 20 次免费搬运额度!",
-    "createAt": "06/25/2023 23:34:18",
-    "readAt": "06/25/2023 23:34:18"
+    "time": "06/25/2023 23:34:18",
+    "tag": {
+      "text": "",
+      "color": ""
+    },
+    "status": 1,
+    "readAt": "06/30/2023 19:49:16"
   },
   {
-    "id": 1,
+    "id": "1",
+    "avatar": "/img/staff_avatar.png",
+    "title": "",
+    "subTitle": "",
     "content": "订购成功!! 立刻开始选择商品铺货吧! 有任何问题欢迎联系!",
-    "createAt": "06/25/2023 23:34:18",
-    "readAt": "06/25/2023 23:34:18"
+    "time": "06/25/2023 23:34:18",
+    "tag": {
+      "text": "",
+      "color": ""
+    },
+    "status": 1,
+    "readAt": "06/30/2023 19:58:11"
   },
   {
-    "id": 0,
+    "id": "0",
+    "avatar": "/img/staff_avatar.png",
+    "title": "",
+    "subTitle": "",
     "content": "欢迎您注册本系统, 已赠送您 20 次免费搬运额度! 快来体验吧~",
-    "createAt": "06/25/2023 23:34:18",
-    "readAt": "06/25/2023 23:34:18"
+    "time": "06/25/2023 23:34:18",
+    "tag": {
+      "text": "",
+      "color": ""
+    },
+    "status": 1,
+    "readAt": "06/30/2023 19:57:15"
   }
 ]

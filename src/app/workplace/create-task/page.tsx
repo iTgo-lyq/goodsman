@@ -27,8 +27,12 @@ export default async function WorkplaceTaskCreator() {
     <Form className="py-4" size="large">
       <FormItem label="搬运模式" field="mode">
         <RadioGroup type="button" defaultValue="multi-goods">
-          <Radio value="multi-goods">多商品搬运</Radio>
-          <Radio value="signal-shop">单店铺搬运</Radio>
+          <Radio id="mode" value="multi-goods">
+            多商品搬运
+          </Radio>
+          <Radio id="mode" value="signal-shop">
+            单店铺搬运
+          </Radio>
         </RadioGroup>
       </FormItem>
 
@@ -58,7 +62,7 @@ export default async function WorkplaceTaskCreator() {
         </div>
       </FormItem>
 
-      <FormItem label="过滤已搬商品">
+      <FormItem label="过滤已搬商品" field="filter">
         <Switch type="line" defaultChecked />
       </FormItem>
 

@@ -1,6 +1,9 @@
 import { PropsWithChildren } from "react";
-import { cookies } from "next/headers";
-import { normalizeMenuCollapsed, normalizeTheme } from "@/utils";
+import {
+  getServerSiderCollapsed,
+  getServerTheme,
+  setMenuCollapsed,
+} from "@/server";
 
 import Link from "next/link";
 import NextTopLoader from "nextjs-toploader";
@@ -49,19 +52,8 @@ const ROUTES = [
 ];
 
 export default function RootLayout(props: PropsWithChildren) {
-  async function setMenuCollapsed(data: FormData) {
-    "use server";
-    cookies().set(
-      "menu-collapsed",
-      String(normalizeMenuCollapsed(data.get("menu-collapsed")))
-    );
-  }
-
-  const cookieStore = cookies();
-  const theme = normalizeTheme(cookieStore.get("theme")?.value);
-  const collapsed = normalizeMenuCollapsed(
-    cookieStore.get("menu-collapsed")?.value ?? "0"
-  );
+  const theme = getServerTheme();
+  const collapsed = getServerSiderCollapsed();
 
   return (
     <html lang="cn">
