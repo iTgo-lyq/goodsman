@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactNode } from "react";
+import { PropsWithChildren } from "react";
 import { cookies } from "next/headers";
 import { normalizeMenuCollapsed, normalizeTheme } from "@/utils";
 
@@ -15,13 +15,7 @@ import {
   IconApps,
   IconCopyright,
 } from "@arco-design/web-react/server";
-import {
-  Menu,
-  LayoutSider,
-  MenuItem,
-  Breadcrumb,
-  BreadcrumbItem,
-} from "@arco-design/web-react/client";
+import { LayoutSider, MenuItem } from "@arco-design/web-react/client";
 import { BreadcrumbGroup, Navbar, SideMenu } from "@/components";
 
 import "./globals.css";

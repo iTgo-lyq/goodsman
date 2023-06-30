@@ -4,6 +4,6 @@ export const enum THEME {
   AUTO = "auto",
 }
 
-export const APP_KEY = "ks719168568185721419";
-export const AK = "zdVGto2pjFIKDWiyN1Cusg";
-export const SK = "b7e354bf9ac200d95e4b3fd2e2a12597";
+export const APP_ID = "ks719168568185721419";
+export const ASK = "zdVGto2pjFIKDWiyN1Cusg";
+export const SSK = "b7e354bf9ac200d95e4b3fd2e2a12597";
