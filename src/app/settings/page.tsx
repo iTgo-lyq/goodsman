@@ -95,8 +95,9 @@ export default async function Settings() {
                     className="flex flex-row flex-wrap arco-form arco-form-vertical"
                     layout="vertical"
                   >
-                    {new Array(10).fill(1).map(() => (
+                    {new Array(10).fill(1).map((_, idx) => (
                       <FormItem
+                        key={idx}
                         className="w-[200px] mr-6 justify-start items-start arco-form-layout-vertical"
                         label="商品类目"
                         field="category"

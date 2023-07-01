@@ -30,7 +30,7 @@ export default function Search(
           searchParams.toString()
       );
     },
-    []
+    [router]
   );
 
   return (

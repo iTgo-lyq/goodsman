@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   getServerMessage,
   getServerNotice,
@@ -39,7 +40,7 @@ const MessageItem = (props: MessageItemData) => {
             avatar={
               props.avatar && (
                 <Avatar shape="circle" size={36}>
-                  <img src={props.avatar} />
+                  <Image src={props.avatar} width={36} height={36} alt="头像" />
                 </Avatar>
               )
             }
