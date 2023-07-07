@@ -1,10 +1,5 @@
-import Image from "next/image";
-import {
-  getServerMessage,
-  getServerNotice,
-  markMessageRead,
-  markMessageReadAll,
-} from "@/server";
+import Image from 'next/image';
+import { getServerMessage, getServerNotice, markMessageRead, markMessageReadAll } from '@/server';
 import {
   List,
   ListItem,
@@ -15,27 +10,15 @@ import {
   Trigger,
   TypographyParagraph,
   TypographyText,
-} from "@arco-design/web-react/client";
-import {
-  Avatar,
-  Badge,
-  Button,
-  Card,
-  Divider,
-  IconNotification,
-  Result,
-  Space,
-} from "@arco-design/web-react/server";
+} from '@arco-design/web-react/client';
+import { Avatar, Badge, Button, Card, Divider, IconNotification, Result, Space } from '@arco-design/web-react/server';
 
 const MessageItem = (props: MessageItemData) => {
   return (
-    <ListItem
-      actionLayout="vertical"
-      style={{ opacity: props.status ? 0.5 : 1 }}
-    >
-      <form className="cursor-pointer" action={markMessageRead}>
+    <ListItem actionLayout="vertical" style={{ opacity: props.status ? 0.5 : 1 }}>
+      <form className="flex cursor-pointer" action={markMessageRead}>
         <input type="hidden" name="id" value={props.id} />
-        <button type="submit" className="text-start">
+        <button type="submit" className="text-start" disabled={!(props.status === 0)}>
           <ListItemMeta
             avatar={
               props.avatar && (
@@ -48,20 +31,14 @@ const MessageItem = (props: MessageItemData) => {
               <div className="flex justify-between">
                 <Space size={4}>
                   <span>{props.title}</span>
-                  <TypographyText type="secondary">
-                    {props.subTitle}
-                  </TypographyText>
+                  <TypographyText type="secondary">{props.subTitle}</TypographyText>
                 </Space>
-                {props.tag?.text ? (
-                  <Tag color={props.tag.color}>{props.tag.text}</Tag>
-                ) : null}
+                {props.tag?.text ? <Tag color={props.tag.color}>{props.tag.text}</Tag> : null}
               </div>
             }
             description={
               <div>
-                <TypographyParagraph style={{ marginBottom: 0 }}>
-                  {props.content}
-                </TypographyParagraph>
+                <TypographyParagraph style={{ marginBottom: 0 }}>{props.content}</TypographyParagraph>
                 <TypographyText type="secondary" style={{ fontSize: 12 }}>
                   {props.time}
                 </TypographyText>
@@ -78,23 +55,12 @@ export default async function MessageBox() {
   const messages = await getServerMessage();
   const notices = await getServerNotice();
 
-  const unreadMsgCount = messages.filter((it) => !it.readAt).length;
+  const unreadMsgCount = messages.filter(it => !it.readAt).length;
 
   const PopupBox = (
-    <Card
-      className="w-[360px] mr-4 shadow-md"
-      bodyStyle={{ padding: "16px 0px 0px" }}
-    >
-      <Tabs
-        overflow="dropdown"
-        type="rounded"
-        defaultActiveTab="message"
-        forceRenderPanes
-      >
-        <TabPane
-          key="message"
-          title={"消息" + (unreadMsgCount ? `(${unreadMsgCount})` : "")}
-        >
+    <Card className="w-[360px] mr-4 shadow-md" bodyStyle={{ padding: '16px 0px 0px' }}>
+      <Tabs overflow="dropdown" type="rounded" defaultActiveTab="message" forceRenderPanes>
+        <TabPane key="message" title={'消息' + (unreadMsgCount ? `(${unreadMsgCount})` : '')}>
           <Divider className="m-0" />
           <List
             size="small"
@@ -121,8 +87,8 @@ export default async function MessageBox() {
             }
           >
             {messages.length ? (
-              <div className="max-h-[500px] overflow-y-auto i-scroll px-5 py-2">
-                {messages.map((it) => (
+              <div className="max-h-[500px] overflow-y-auto i-scroll px-5">
+                {messages.map(it => (
                   <MessageItem key={it.id} {...it} />
                 ))}
               </div>
@@ -144,8 +110,8 @@ export default async function MessageBox() {
             }
           >
             {notices.length ? (
-              <div className="max-h-[500px] overflow-y-auto i-scroll px-5 py-2">
-                {notices.map((it) => (
+              <div className="max-h-[500px] overflow-y-auto i-scroll px-5">
+                {notices.map(it => (
                   <MessageItem key={it.id} {...it} />
                 ))}
               </div>
@@ -157,29 +123,18 @@ export default async function MessageBox() {
   );
 
   return (
-    <Trigger
-      className="mx-2"
-      trigger="click"
-      popup={PopupBox}
-      position="br"
-      popupAlign={{ bottom: 8 }}
-    >
+    <Trigger className="mx-2" trigger="click" popup={PopupBox} position="br" popupAlign={{ bottom: 8 }}>
       <Badge
-        dotClassName={"absolute origin-center animate-ping"}
+        dotClassName={'absolute origin-center animate-ping'}
         dotStyle={{
-          display: unreadMsgCount ? "block" : "none",
-          animationPlayState: unreadMsgCount ? "running" : "paused",
+          display: unreadMsgCount ? 'block' : 'none',
+          animationPlayState: unreadMsgCount ? 'running' : 'paused',
         }}
         count={unreadMsgCount}
         dot
         offset={[-2, 2]}
       >
-        <Button
-          className="mx-2"
-          icon={<IconNotification />}
-          shape="circle"
-          type="secondary"
-        />
+        <Button className="mx-2" icon={<IconNotification />} shape="circle" type="secondary" />
       </Badge>
     </Trigger>
   );

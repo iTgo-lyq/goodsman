@@ -1,0 +1,3 @@
+.usage-modal :global(.arco-modal-header) {
+  height: auto !important;
+}

@@ -1,17 +1,37 @@
-import { APP_ID, ASK } from "@/constants";
-import { cookies } from "next/headers";
-import { NextResponse, NextRequest } from "next/server";
+import qs from 'querystring';
+import { cookies } from 'next/headers';
+import { NextResponse, NextRequest } from 'next/server';
+import fetch$ from '@/utils/fetch/server';
+import { COOKIE_KEY_ACCESS_TOKEN } from '@/constants';
 
 export async function GET(request: NextRequest) {
-  const url = request.nextUrl;
-  const code = url.searchParams.get("code");
+  return await Mock(request);
 
-  const req = await fetch(
-    `https://openapi.kwaixiaodian.com/oauth2/access_token?app_id=${APP_ID}&grant_type=code&code=${code}&app_secret=${ASK}`
-  ).then((it) => it.json());
+  const url = request.nextUrl.clone();
+  const code = url.searchParams.get('code');
 
-  cookies().set("access_token", "test_token");
-  cookies().set("auth_result", JSON.stringify(req));
+  const req = await fetch$('/auth?' + qs.stringify({ code: code })).then(it => it.json());
 
-  return NextResponse.redirect("/");
+  cookies().set(COOKIE_KEY_ACCESS_TOKEN, req.data?.token ?? '');
+
+  url.pathname = '/';
+
+  return NextResponse.redirect(url.toString());
+}
+
+async function Mock(request: NextRequest) {
+  const url = request.nextUrl.clone();
+  const req: ResponseBody<{ token: string }> = {
+    code: 0,
+    data: {
+      token: 'test_token',
+    },
+    msg: 'success',
+  };
+
+  cookies().set(COOKIE_KEY_ACCESS_TOKEN, req.data?.token ?? '');
+
+  url.pathname = '/';
+
+  return NextResponse.redirect(url.toString());
 }

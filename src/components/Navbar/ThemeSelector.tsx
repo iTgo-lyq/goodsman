@@ -1,14 +1,8 @@
-import { HTMLAttributes } from "react";
-import { Dropdown, Menu, MenuItem } from "@arco-design/web-react/client";
-import {
-  Button,
-  IconDesktop,
-  IconMoonFill,
-  IconSunFill,
-} from "@arco-design/web-react/server";
-import { THEME } from "@/constants";
-import { setThemeAuto, setThemeDark, setThemeLight } from "@/server/action";
-import { getServerTheme } from "@/server";
+import { HTMLAttributes } from 'react';
+import { Dropdown, Menu, MenuItem } from '@arco-design/web-react/client';
+import { Button, IconDesktop, IconMoonFill, IconSunFill } from '@arco-design/web-react/server';
+import { THEME } from '@/constants';
+import { setThemeAuto, setThemeDark, setThemeLight, getServerTheme } from '@/server';
 
 const IconMap = {
   [THEME.DARK]: <IconMoonFill />,

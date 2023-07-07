@@ -1,0 +1,15 @@
+.i-scroll-mini :global(ul)::-webkit-scrollbar {
+  width: 6px;
+}
+
+.i-scroll-mini :global(ul)::-webkit-scrollbar-track-piece {
+  background-color: var(--color-bg-2);
+  border-radius: 8px;
+}
+
+.i-scroll-mini :global(ul)::-webkit-scrollbar-thumb {
+  background-color: var(--color-text-3);
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  border-radius: 8px;
+}

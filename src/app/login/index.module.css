@@ -1,0 +1,19 @@
+@media (prefers-color-scheme: dark) {
+  .sider-bg {
+    background: linear-gradient(163.85deg, #1d2129 0%, #00308f 100%);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .sider-bg {
+    background: linear-gradient(163.85deg, #cadcff 0%, #004eeb 100%);
+  }
+}
+
+body[arco-theme="dark"] .sider-bg {
+  background: linear-gradient(163.85deg, #1d2129 0%, #00308f 100%);
+}
+
+body[arco-theme="light"] .sider-bg {
+  background: linear-gradient(163.85deg, #cadcff 0%, #004eeb 100%);
+}

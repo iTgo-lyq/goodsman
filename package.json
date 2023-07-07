@@ -21,11 +21,12 @@
     "@types/react-dom": "18.2.5",
     "autoprefixer": "10.4.14",
     "dayjs": "^1.11.8",
-    "next": "13.4.5",
+    "next": "13.4.9-canary.2",
     "nextjs-toploader": "^1.4.2",
     "postcss": "^8.4.24",
     "react": "0.0.0-experimental-613e6f5fc-20230616",
     "react-dom": "0.0.0-experimental-613e6f5fc-20230616",
+    "swr": "^2.2.0",
     "tailwindcss": "3.3.2",
     "typescript": "^5.1.3"
   },

@@ -1,13 +1,11 @@
-"use client";
-import { usePathname } from "next/navigation";
-import { Breadcrumb, BreadcrumbItem } from "@arco-design/web-react/client";
+'use client';
+import { usePathname } from 'next/navigation';
+import { Breadcrumb, BreadcrumbItem } from '@arco-design/web-react/client';
 
-export default function BreadcrumbGroup(props: {
-  items: { id: string; icon: JSX.Element; content: string }[];
-}) {
+export default function BreadcrumbGroup(props: { items: { id: string; icon: JSX.Element; content: string }[] }) {
   const pathname = usePathname();
-  const mainPath = pathname.split("/").filter(Boolean)[0];
-  const item = props.items.find((it) => it.id === mainPath);
+  const mainPath = pathname.split('/').filter(Boolean)[1];
+  const item = props.items.find(it => it.id === mainPath);
 
   return (
     item && (

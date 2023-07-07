@@ -1,0 +1,17 @@
+node_modules/
+*/**/*.html
+*/**/*.png
+*/**/assets/**/*
+dist/
+output/
+unity-components/
+unity-generators/
+unity-tools/
+ex/
+polyfill
+lepus
+**/.git
+**/.svn
+**/.hg
+.client
+.server
