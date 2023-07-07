@@ -23,7 +23,7 @@ export const metadata = {
 
 const ROUTES = [
   {
-    id: 'carry/create-task',
+    id: 'carry',
     icon: <IconCommon />,
     content: '商品搬家',
   },

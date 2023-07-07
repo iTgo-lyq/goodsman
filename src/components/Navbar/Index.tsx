@@ -13,7 +13,7 @@ export default function Navbar(props: { className?: string }) {
         'w-full flex-row-center px-4 h-16 border-b border-gray bg-[var(--color-bg-2)] ' + props.className ?? ''
       }
     >
-      <div className="flex-grow">
+      <div className="flex-grow flex-row-center">
         <Logo />
       </div>
 
