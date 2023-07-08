@@ -2,6 +2,7 @@ import { PropsWithChildren, ReactNode } from 'react';
 import { Metadata } from 'next';
 import { getServerTheme } from '@/server';
 import NextTopLoader from 'nextjs-toploader';
+import { WebVitals } from '@/components/client';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export default function RootLayout(props: PropsWithChildren & { fullPage: ReactN
       </head>
 
       <body className="w-screen h-screen overflow-hidden" arco-theme={theme}>
+        <WebVitals />
         <NextTopLoader />
         {props.children}
       </body>

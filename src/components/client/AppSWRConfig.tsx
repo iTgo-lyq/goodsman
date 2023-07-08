@@ -1,6 +1,6 @@
 'use client';
-import { PropsWithChildren } from 'react';
 import { SWRConfig, Cache } from 'swr';
+import { PropsWithChildren } from 'react';
 
 function localStorageProvider(cache: Readonly<Cache<any>>) {
   if (typeof window === 'undefined') return cache;

@@ -1,15 +1,7 @@
-import {
-  AutoComplete,
-  DateRangePicker,
-  Form,
-  FormItem,
-  Input,
-  InputTag,
-  TypographyTitle,
-} from '@arco-design/web-react/client';
-import { Button, Card, Divider, IconRefresh, IconSearch } from '@arco-design/web-react/server';
+import { TypographyTitle } from '@arco-design/web-react/client';
+import { Card, Divider } from '@arco-design/web-react/server';
 import { PropsWithChildren } from 'react';
-import FilterBoard from './filter';
+import FilterBoard from './FilterBoard';
 
 export default function RecordsLayout(props: PropsWithChildren) {
   return (
@@ -19,7 +11,6 @@ export default function RecordsLayout(props: PropsWithChildren) {
       </TypographyTitle>
       <FilterBoard />
       <Divider />
-
       {props.children}
     </Card>
   );

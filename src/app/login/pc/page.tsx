@@ -1,7 +1,7 @@
+import { HREF_KS_AUTH_PC, HREF_KS_SERVICE } from '@/constants';
 import Link from 'next/link';
 import { TypographyText } from '@arco-design/web-react/client';
 import { Card, Steps, IconLaunch, StepItem } from '@arco-design/web-react/server';
-import { HREF_KS_AUTH_PC, HREF_KS_SERVICE } from '@/constants';
 
 export default function PCAuth() {
   return (

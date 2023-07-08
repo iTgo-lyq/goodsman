@@ -1,10 +1,9 @@
-import Image from 'next/image';
+import { getServerUserInfo } from '@/server';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Form, FormItem, Radio, RadioGroup, Checkbox, Switch, TypographyText } from '@arco-design/web-react/client';
 import { Button, Card, Divider, IconCheck, IconClose, IconLaunch } from '@arco-design/web-react/server';
 import LinksInput from './LinksInput';
-import { getServerUserInfo } from '@/server';
-
 import style from './index.module.css';
 
 export default async function WorkplaceTaskCreator() {

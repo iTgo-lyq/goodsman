@@ -1,8 +1,8 @@
+import { getServerUserInfo, loginOut } from '@/server';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Dropdown, Menu, MenuItem } from '@arco-design/web-react/client';
 import { Avatar, Divider, IconExport, IconImport } from '@arco-design/web-react/server';
-import { getServerUserInfo, loginOut } from '@/server';
 
 export default async function UserInfo(props: { className?: string }) {
   const userInfo = await getServerUserInfo();

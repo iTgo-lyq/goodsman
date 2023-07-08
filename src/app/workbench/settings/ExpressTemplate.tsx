@@ -1,14 +1,10 @@
 'use client';
 import { HREF_EXPRESS_TEMPLATE_EDIT } from '@/constants';
-import { useQueryString } from '@/utils/hooks';
 import Link from 'next/link';
 import { AutoComplete, FormItem } from '@arco-design/web-react/client';
 import { Button, ButtonGroup, IconLaunch, IconRefresh } from '@arco-design/web-react/server';
 
 export default function ExpressTemplate() {
-  const [searchParams, setSearchParams] = useQueryString();
-  const inventoryValue = searchParams.get('inventory') || '0';
-
   return (
     <FormItem label="运费模版" field="expressTemplateId">
       <ButtonGroup className="max-w-[500px] w-full flex flex-row ">

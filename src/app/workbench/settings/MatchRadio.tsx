@@ -4,8 +4,8 @@ import { FormItem, Radio, RadioGroup } from '@arco-design/web-react/client';
 
 export default function MatchRadio() {
   const [searchParams, setSearchParams] = useQueryString();
-
   const matchValue = searchParams.get('match') || '0';
+
   return (
     <FormItem label="匹配模式" field="match" initialValue={matchValue}>
       <RadioGroup type="button" onChange={v => setSearchParams('match', v)}>

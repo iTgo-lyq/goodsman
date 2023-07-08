@@ -1,7 +1,7 @@
 import { PropsWithChildren, ReactNode } from 'react';
 import { getServerSiderCollapsed, setMenuCollapsed } from '@/server';
-
 import Link from 'next/link';
+import { LayoutSider, MenuItem } from '@arco-design/web-react/client';
 import {
   Layout,
   Button,
@@ -13,8 +13,9 @@ import {
   IconApps,
   IconCopyright,
 } from '@arco-design/web-react/server';
-import { LayoutSider, MenuItem } from '@arco-design/web-react/client';
-import { BreadcrumbGroup, Navbar, SideMenu } from '@/components';
+import { Logo } from '@/components/handless';
+import { BreadcrumbGroup, Search, SideMenu } from '@/components/client';
+import { MessageBox, ThemeSelector, UserInfo } from '@/components/server';
 
 export const metadata = {
   title: '商品搬家',
@@ -38,7 +39,7 @@ const ROUTES = [
     content: '搬家记录',
   },
   {
-    id: 'management',
+    id: 'goods',
     icon: <IconApps />,
     content: '商品管理',
   },
@@ -49,7 +50,15 @@ export default function RootLayout(props: PropsWithChildren & { fullPage: ReactN
 
   return (
     <Layout className="full">
-      <Navbar />
+      <Layout.Header className={'w-full flex-row-center px-4 h-16 border-b border-gray bg-[var(--color-bg-2)]'}>
+        <div className="flex-grow flex-row-center">
+          <Logo />
+        </div>
+        <Search className="mx-2" />
+        <MessageBox />
+        <ThemeSelector className="mx-2" />
+        <UserInfo className="mx-2" />
+      </Layout.Header>
       <Layout className="flex-1 overflow-hidden" hasSider>
         <LayoutSider collapsed={!!collapsed}>
           <SideMenu>

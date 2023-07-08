@@ -3,7 +3,7 @@ import { headers } from 'next/headers';
 import { SERVER_DEFAULT_HOST } from '@/constants';
 import { bffFetch } from './bff';
 
-function prefixHost(url: string) {
+export function prefixHost(url: string) {
   if (url.startsWith('http')) return url;
 
   const host = headers().get('host') || SERVER_DEFAULT_HOST;

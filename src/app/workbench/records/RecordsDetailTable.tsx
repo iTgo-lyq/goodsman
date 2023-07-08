@@ -1,23 +1,31 @@
 'use client';
-import { useQueryString } from '@/utils/hooks';
-import { Button, Table, Image } from '@arco-design/web-react/client';
-import Link from 'next/link';
-// import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { useQueryString } from '@/utils/hooks';
+import Link from 'next/link';
+import { Button, Table, Image } from '@arco-design/web-react/client';
 
 interface RecordTableProps {
   data: RecordItem[];
 }
 
 export default function RecordsDetailTable(props: RecordTableProps) {
-  const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
+  const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
   const [_, setSearchParams] = useQueryString();
+
   useEffect(() => {
-    setSearchParams('selectedRowKeys', selectedRowKeys.join(','));
+    setSearchParams('selectedRowKeys', selectedRowKeys);
   }, [selectedRowKeys]);
+
+  useEffect(() => {
+    setSearchParams(
+      'selectedRowKeys',
+      selectedRowKeys.filter(item => props.data.find(it => it.id === item)),
+    );
+  }, [props.data]);
+
   return (
     <>
-      <input type="hidden" value={selectedRowKeys} name="selectedRowKeys" />
+      <input type="hidden" value={selectedRowKeys.map(String)} name="selectedRowKeys" />
       <Table
         rowKey="id"
         className="mt-4"

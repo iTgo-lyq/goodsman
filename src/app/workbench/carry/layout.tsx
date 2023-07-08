@@ -1,10 +1,10 @@
 import { PropsWithChildren, ReactNode } from 'react';
+import { HREF_KS_SERVICE } from '@/constants';
+import { getServerUserInfo } from '@/server';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Statistic, TypographyText, TypographyTitle } from '@arco-design/web-react/client';
 import { Button, Card, IconCaretUp, IconTheShoppingCart } from '@arco-design/web-react/server';
-import { getServerUserInfo } from '@/server';
-import { HREF_KS_SERVICE } from '@/constants';
 
 export default async function Workplace(props: PropsWithChildren<{ modal?: ReactNode }>) {
   const userInfo = await getServerUserInfo();

@@ -21,11 +21,11 @@ const MessageItem = (props: MessageItemData) => {
         <button type="submit" className="text-start" disabled={!(props.status === 0)}>
           <ListItemMeta
             avatar={
-              props.avatar && (
+              props.avatar ? (
                 <Avatar shape="circle" size={36}>
                   <Image src={props.avatar} width={36} height={36} alt="头像" />
                 </Avatar>
-              )
+              ) : null
             }
             title={
               <div className="flex justify-between">

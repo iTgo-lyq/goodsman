@@ -1,16 +1,6 @@
-import {
-  AutoComplete,
-  DateRangePicker,
-  Form,
-  FormItem,
-  Input,
-  InputTag,
-  Select,
-  SelectOption,
-  TypographyTitle,
-} from '@arco-design/web-react/client';
-import { Button, Card, Divider, IconRefresh, IconSearch } from '@arco-design/web-react/server';
 import { PropsWithChildren } from 'react';
+import { DateRangePicker, Form, FormItem, InputTag, Select, TypographyTitle } from '@arco-design/web-react/client';
+import { Button, Card, Divider, IconRefresh, IconSearch } from '@arco-design/web-react/server';
 
 export default function RecordsLayout(props: PropsWithChildren) {
   return (

@@ -1,13 +1,19 @@
-import { ButtonGroup, Button, Table, Image } from '@arco-design/web-react/client';
-import { IconRefresh, IconSelectAll, Link } from '@arco-design/web-react/server';
-import RecordsDetailTable from './table';
-import { getServerRecordDetailTable, startTask } from '@/server/store';
+import { startTask } from '@/server/action';
+import { getServerRecordDetailTable } from '@/server/store';
+import { pickSearchParam } from '@/utils';
+import { ButtonGroup, Button } from '@arco-design/web-react/client';
+import { IconRefresh, IconSelectAll } from '@arco-design/web-react/server';
+import RecordsDetailTable from './RecordsDetailTable';
 
-export default async function RecordsDetail(props: { searchParams?: Record<string, string> }) {
-  // const { data, mutate } = useSWR<RecordItem[] | undefined>('/api/mock/records', clientFetch);
-  const selectedRowKeys = props.searchParams?.selectedRowKeys?.split(',').filter(Boolean) || [];
-  const status = props.searchParams?.status;
-  const data = await getServerRecordDetailTable();
+export default async function RecordsDetail(props: any) {
+  const selectedRowKeys = pickSearchParam<number[]>(props, 'selectedRowKeys', [], 'num');
+  const status = pickSearchParam<string>(props, 'status', '');
+  const createAtRange = pickSearchParam<string[]>(props, 'createAtRange', [], 'str');
+  const itemKeyword = pickSearchParam<string>(props, 'itemKeyword', '');
+  const shopKeyword = pickSearchParam<string>(props, 'shopKeyword', '');
+
+  const data = await getServerRecordDetailTable({ status, createAtRange, itemKeyword, shopKeyword });
+
   return (
     <form>
       <div className="flex justify-between">
@@ -17,9 +23,9 @@ export default async function RecordsDetail(props: { searchParams?: Record<strin
             htmlType="submit"
             className="mr-4"
             type="primary"
-            disabled={!selectedRowKeys.length}
+            disabled={!selectedRowKeys?.length}
           >
-            开启任务({selectedRowKeys.length})
+            开启任务({selectedRowKeys?.length})
           </Button>
           <Button disabled={!selectedRowKeys.length}>暂停任务({selectedRowKeys.length})</Button>
         </div>
@@ -28,7 +34,7 @@ export default async function RecordsDetail(props: { searchParams?: Record<strin
           <Button icon={<IconSelectAll />}>全选</Button>
         </ButtonGroup>
       </div>
-      <RecordsDetailTable data={data?.filter(item => item.status == status || !status) || []} />
+      <RecordsDetailTable data={data || []} />
     </form>
   );
 }

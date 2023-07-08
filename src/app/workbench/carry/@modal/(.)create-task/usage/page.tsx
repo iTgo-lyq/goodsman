@@ -1,7 +1,6 @@
 'use client';
-import { Modal, TypographyParagraph, TypographyTitle, Button } from '@arco-design/web-react/client';
 import { useRouter } from 'next/navigation';
-
+import { Modal, TypographyParagraph, TypographyTitle, Button } from '@arco-design/web-react/client';
 import style from './index.module.css';
 
 export default function UsageModal() {

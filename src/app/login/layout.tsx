@@ -1,8 +1,7 @@
 import { PropsWithChildren } from 'react';
+import { Logo } from '@/components/handless';
 import { Carousel } from '@arco-design/web-react/client';
-import { IconCopyright, Layout } from '@arco-design/web-react/server';
-import Logo from '@/components/Navbar/Logo';
-
+import { Layout, IconCopyright } from '@arco-design/web-react/server';
 import style from './index.module.css';
 
 export default function LoginPage(props: PropsWithChildren) {

@@ -1,9 +1,9 @@
 'use client';
-import { useCallback, useMemo } from 'react';
-import useSWR from 'swr';
-import { AutoComplete, Cascader, FormItem, Button } from '@arco-design/web-react/client';
+import { useState, useCallback, useMemo } from 'react';
+import { useClientFetch, useJsonFetch } from '@/utils/hooks';
+import { Cascader, FormItem, Button } from '@arco-design/web-react/client';
 import { IconRefresh } from '@arco-design/web-react/server';
-import jsonFetch from '@/utils/fetch/json';
+import { KsDynamicFormItemGroup } from '@/components/client';
 import style from './index.module.css';
 
 function map2Option(item: CategoryItem) {
@@ -15,8 +15,11 @@ function map2Option(item: CategoryItem) {
 }
 
 export default function CategoryInput() {
-  // '/api/auth/getInfo'
-  const { data: categories, mutate } = useSWR<CategoryItem[]>('/category/index.json', jsonFetch);
+  const { data: categories, mutate: mutateCategories } = useJsonFetch<CategoryItem[]>('/category/index.json');
+  const [categoryId, setCategoryId] = useState<string>();
+  const { data: categoryPropList, isLoading } = useClientFetch<CategoryPropConfigParam[]>(
+    categoryId ? `/api/config/prop?categoryId=${categoryId}` : '',
+  );
 
   const options = useMemo(() => categories?.map(map2Option), [categories]);
 
@@ -39,27 +42,22 @@ export default function CategoryInput() {
             options={options}
             loadMore={loadMore}
             allowClear
+            onChange={v => setCategoryId(v[v.length - 1] as string)}
           />
-          <Button className="rounded-l-none" icon={<IconRefresh />} onClick={() => mutate()}>
+          <Button className="rounded-l-none" icon={<IconRefresh />} onClick={() => mutateCategories()}>
             刷新类目
           </Button>
         </div>
       </FormItem>
-      <FormItem label="商品属性">
-        <div className="flex flex-row flex-wrap arco-form arco-form-vertical">
-          {new Array(10).fill(1).map((_, idx) => (
-            <FormItem
-              key={idx}
-              className="w-[200px] mr-6 justify-start items-start arco-form-layout-vertical"
-              label="商品类目"
-              field="category"
-              layout="vertical"
-            >
-              <AutoComplete data={new Array(10).fill('我是类目类目类目').map((it, idx) => it + idx)} allowClear />
-            </FormItem>
-          ))}
-        </div>
-      </FormItem>
+      {categoryPropList?.length || isLoading ? (
+        <KsDynamicFormItemGroup
+          isLoading={isLoading}
+          label="商品属性"
+          rootField="prop"
+          required
+          fieldConfigList={categoryPropList || []}
+        />
+      ) : null}
     </>
   );
 }

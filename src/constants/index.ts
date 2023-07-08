@@ -9,7 +9,8 @@ export const ASK = 'zdVGto2pjFIKDWiyN1Cusg';
 export const SSK = 'b7e354bf9ac200d95e4b3fd2e2a12597';
 
 export const SERVER_DEFAULT_HOST = 'localhost:3000';
-export const SERVER_BASE_URL = '';
+export const SERVER_BASE_URL = 'http://koisecret.site:6789/api';
+export const DEFAULT_GET_REVALIDATE = 5 * 60 * 1000;
 
 export const COOKIE_KEY_ACCESS_TOKEN = 'access_token';
 

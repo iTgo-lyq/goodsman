@@ -3,7 +3,6 @@ import fetch$ from '@/utils/fetch/server';
 
 export async function GET(request: NextRequest) {
   return await Mock();
-
   return await fetch$('/config/expressTemplate');
 }
 

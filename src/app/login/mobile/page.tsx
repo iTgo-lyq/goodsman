@@ -1,8 +1,8 @@
+import { HREF_KS_AUTH_MOBILE } from '@/constants';
 import Link from 'next/link';
 import Image from 'next/image';
 import { TypographyText } from '@arco-design/web-react/client';
 import { Card, Steps, IconLaunch, StepItem } from '@arco-design/web-react/server';
-import { HREF_KS_AUTH_MOBILE } from '@/constants';
 
 export default function MobileAuth() {
   return (

@@ -7,12 +7,10 @@ export default function BreadcrumbGroup(props: { items: { id: string; icon: JSX.
   const mainPath = pathname.split('/').filter(Boolean)[1];
   const item = props.items.find(it => it.id === mainPath);
 
-  return (
-    item && (
-      <Breadcrumb className="text-base mb-4">
-        <BreadcrumbItem>{item.icon}</BreadcrumbItem>
-        <BreadcrumbItem>{item.content}</BreadcrumbItem>
-      </Breadcrumb>
-    )
-  );
+  return item ? (
+    <Breadcrumb className="text-base mb-4">
+      <BreadcrumbItem>{item.icon}</BreadcrumbItem>
+      <BreadcrumbItem>{item.content}</BreadcrumbItem>
+    </Breadcrumb>
+  ) : null;
 }

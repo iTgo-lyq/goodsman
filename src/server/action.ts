@@ -57,3 +57,15 @@ export async function markMessageReadAll(data: FormData) {
 export async function loginOut() {
   cookies().delete(COOKIE_KEY_ACCESS_TOKEN);
 }
+
+export async function startTask(formData: FormData) {
+  // const it = await fetch$('/api/mock/records');
+  // const result: ResponseBody<RecordItem[]> = await it.json();
+  const selectedRowKeys = formData.get('selectedRowKeys');
+  console.log(selectedRowKeys);
+  // MockStore.task.forEach((item,index)=>{
+
+  //   item.status == '运行中'
+  // })
+  // return result.data;
+}

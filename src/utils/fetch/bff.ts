@@ -11,9 +11,9 @@ export async function bffFetch(url: string, init?: RequestInit | undefined) {
   const response = await fetch(url, {
     ...init,
     headers: {
-      ...init?.headers,
       Cookie: currentCookies.toString(),
       Host: headers().get('host') ?? SERVER_DEFAULT_HOST,
+      ...init?.headers,
     },
   });
 

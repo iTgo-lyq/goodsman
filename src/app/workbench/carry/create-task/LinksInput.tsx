@@ -1,6 +1,5 @@
 'use client';
 import { Input, InputTag, FormItem } from '@arco-design/web-react/client';
-
 import style from './index.module.css';
 
 export default function LinksInput() {

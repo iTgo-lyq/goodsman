@@ -6,13 +6,12 @@ import { COOKIE_KEY_ACCESS_TOKEN } from '@/constants';
 
 export async function GET(request: NextRequest) {
   return await Mock(request);
-
   const url = request.nextUrl.clone();
   const code = url.searchParams.get('code');
 
-  const req = await fetch$('/auth?' + qs.stringify({ code: code })).then(it => it.json());
+  const req = await fetch$<string>('/auth?' + qs.stringify({ code: code }));
 
-  cookies().set(COOKIE_KEY_ACCESS_TOKEN, req.data?.token ?? '');
+  cookies().set(COOKIE_KEY_ACCESS_TOKEN, req.data ?? '');
 
   url.pathname = '/';
 
@@ -24,7 +23,8 @@ async function Mock(request: NextRequest) {
   const req: ResponseBody<{ token: string }> = {
     code: 0,
     data: {
-      token: 'test_token',
+      token:
+        'eyJhbGciOiJIUzI1NiJ9.eyJvcGVuaWQiOiJmMTgxOTVhZmJmMDVjYzZjMTRiZjU3MjQ2NTc0NWRlMiIsImV4cCI6MTY4ODgxMDQ3MywiaWF0IjoxNjg4MjA1NjczfQ.C7_x2sy1kZYhzcBVWkxIC3lLqg-l5lCa2GMsZa_2bZA',
     },
     msg: 'success',
   };

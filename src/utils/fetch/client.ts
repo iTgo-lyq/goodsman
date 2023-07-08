@@ -1,20 +1,26 @@
 import { Notification } from '@arco-design/web-react/client';
 import { CODE_SUCCESS, CODE_UNAUTHORIZED } from '@/constants';
-import { UnauthorizedNotification } from '@/components';
+import { UnauthorizedNotificationContent } from '@/components/handless';
+import { sleep } from '..';
 
 export async function clientFetch<T = null>(url: string, init?: RequestInit | undefined) {
+  if (!url) return;
+
+  await sleep(3000);
+
   console.log(`[clientFetch] ${url}`);
   try {
     const response = await fetch(url, {
       ...init,
       headers: {
-        ...init?.headers,
         Accept: 'application/json',
         'Content-Type': 'application/json',
+        ...init?.headers,
       },
     });
 
     if (response.status !== 200) {
+      console.error('请求出错', response);
       Notification.error({
         closable: false,
         title: '请求出错!',
@@ -26,23 +32,26 @@ export async function clientFetch<T = null>(url: string, init?: RequestInit | un
     const body: ResponseBody<T> = await response.json();
 
     if (body.code === CODE_UNAUTHORIZED) {
+      console.error('未授权!', response);
       Notification.error({
         closable: false,
         title: '未授权!',
-        content: UnauthorizedNotification(),
+        content: UnauthorizedNotificationContent(),
       });
       return;
-    } else if (body.code === CODE_SUCCESS) {
+    } else if (body.code !== CODE_SUCCESS) {
+      console.error('服务错误!', response);
       Notification.error({
         closable: false,
         title: '服务错误!',
-        content: `PATH: ${url} | MSG: ${body.msg || body.message || '未知原因'}`,
+        content: `PATH: ${url} | CODE: ${body.code} | MSG: ${body.msg || body.message || '未知原因'}`,
       });
       return;
     }
 
     return body.data;
   } catch (error) {
+    console.error('内部错误!', error);
     Notification.error({
       closable: false,
       title: '内部错误!',

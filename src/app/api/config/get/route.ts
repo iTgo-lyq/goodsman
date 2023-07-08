@@ -4,7 +4,6 @@ import { MockStore } from '@/utils/mock';
 
 export async function GET(request: NextRequest) {
   return await Mock();
-
   return await fetch$('/config/get');
 }
 
