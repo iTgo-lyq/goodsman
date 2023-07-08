@@ -1,9 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+import { redirect } from 'next/navigation';
 
-// 临时转发
-export async function GET(request: NextRequest) {
-  const url = request.nextUrl.clone();
-  url.pathname = "/api/auth";
-
-  return NextResponse.redirect(url.toString());
+// 平台配置的接口, 临时转发
+export async function GET() {
+  redirect('/api/auth');
 }

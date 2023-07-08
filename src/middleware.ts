@@ -4,7 +4,7 @@ import type { NextRequest } from 'next/server';
 // TODO 定时刷新类目列表
 
 export function middleware(request: NextRequest) {
-  const response = NextResponse.next();
+  const response = NextResponse.next({ request });
 
   return response;
 }
