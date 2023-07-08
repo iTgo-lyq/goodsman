@@ -7,8 +7,10 @@ export function prefixHost(url: string) {
   if (url.startsWith('http')) return url;
 
   const host = headers().get('host') || SERVER_DEFAULT_HOST;
+  const schema =
+    (headers().get('X-Forwarded-Proto') || headers().get('X-Forwarded-Scheme')) === 'http' ? 'http' : 'https';
 
-  return 'http://' + path.join(host, url);
+  return schema + '://' + path.join(host, url);
 }
 
 export async function sameOriginFetch(url: string, init?: RequestInit | undefined) {
