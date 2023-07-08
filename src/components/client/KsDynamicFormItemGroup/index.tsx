@@ -40,6 +40,7 @@ const FieldComponentMap: Record<CategoryPropConfigParam['propInputType'], FC<any
 
 interface Props {
   className?: string;
+  categoryId: string;
   isLoading: boolean;
   required?: boolean;
   label: string;
@@ -48,7 +49,7 @@ interface Props {
 }
 
 export default function KsDynamicFormItemGroup(props: Props) {
-  const { className = '', label, isLoading, required, rootField, fieldConfigList = [] } = props;
+  const { className = '', categoryId, label, isLoading, required, rootField, fieldConfigList = [] } = props;
 
   return (
     <FormItem label={label} required={required}>
@@ -67,7 +68,7 @@ export default function KsDynamicFormItemGroup(props: Props) {
               layout="vertical"
               rules={FieldRulesMap[it.propInputType](it)}
             >
-              {FieldComponentMap[it.propInputType](it)}
+              {FieldComponentMap[it.propInputType]({ ...it, categoryId })}
             </FormItem>
           ))}
         </div>

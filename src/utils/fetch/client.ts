@@ -1,12 +1,9 @@
 import { Notification } from '@arco-design/web-react/client';
 import { CODE_SUCCESS, CODE_UNAUTHORIZED } from '@/constants';
 import { UnauthorizedNotificationContent } from '@/components/handless';
-import { sleep } from '..';
 
 export async function clientFetch<T = null>(url: string, init?: RequestInit | undefined) {
   if (!url) return;
-
-  await sleep(3000);
 
   console.log(`[clientFetch] ${url}`);
   try {
@@ -40,7 +37,7 @@ export async function clientFetch<T = null>(url: string, init?: RequestInit | un
       });
       return;
     } else if (body.code !== CODE_SUCCESS) {
-      console.error('服务错误!', response);
+      console.error('服务错误!', response, body);
       Notification.error({
         closable: false,
         title: '服务错误!',

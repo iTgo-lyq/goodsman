@@ -17,6 +17,8 @@ export const COOKIE_KEY_ACCESS_TOKEN = 'access_token';
 export const CODE_UNKNOWN_ERROR = -1;
 export const CODE_SUCCESS = 0;
 export const CODE_UNAUTHORIZED = 10001;
+export const CATEGORY_PROP_OPTION_GROUP_DEFAULT_SIZE = 50;
+export const CATEGORY_PROP_OPTION_GROUP_MAX_CURSOR = 2000;
 
 export const HREF_KS_AUTH_PC =
   'https://open.kwaixiaodian.com/oauth/authorize?app_id=ks719168568185721419&redirect_uri=https%3A%2F%2Fgoodsman.tgozzz.cn%2Fauth&scope=merchant_scm,merchant_item,user_info,merchant_video,merchant_material,merchant_servicemarket,merchant_user,merchant_comment,merchant_logistics&response_type=code';

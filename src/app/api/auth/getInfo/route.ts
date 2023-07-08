@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { COOKIE_KEY_ACCESS_TOKEN } from '@/constants';
 
 export async function GET(request: NextRequest) {
-  return await Mock(request);
+  // return await Mock(request);
   return NextResponse.json(await fetch$('/auth/getInfo'));
 }
 

@@ -1,0 +1,29 @@
+.list-inner-cascader-menu {
+  border: none !important;
+}
+
+.list-inner-cascader-menu :global(.arco-cascader-list) {
+  height: auto !important;
+  max-height: none !important;
+  overflow-y: unset !important;
+}
+
+.list-inner-cascader-menu :global(.arco-cascader-popup-inner) {
+  height: auto !important;
+}
+
+.list-inner-cascader-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.list-inner-cascader-menu::-webkit-scrollbar-track-piece {
+  background-color: var(--color-bg-2);
+  border-radius: 8px;
+}
+
+.list-inner-cascader-menu::-webkit-scrollbar-thumb {
+  background-color: var(--color-text-3);
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  border-radius: 8px;
+}

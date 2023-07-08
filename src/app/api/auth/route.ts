@@ -5,7 +5,7 @@ import fetch$ from '@/utils/fetch/server';
 import { COOKIE_KEY_ACCESS_TOKEN } from '@/constants';
 
 export async function GET(request: NextRequest) {
-  return await Mock(request);
+  // return await Mock(request);
   const url = request.nextUrl.clone();
   const code = url.searchParams.get('code');
 

@@ -1,16 +1,20 @@
+import qs from 'querystring';
 import { NextRequest, NextResponse } from 'next/server';
 import fetch$ from '@/utils/fetch/server';
-import qs from 'querystring';
+import { CATEGORY_PROP_OPTION_GROUP_DEFAULT_SIZE } from '@/constants';
 
 export async function GET(request: NextRequest) {
-  return await Mock(request);
+  // return await Mock(request);
 
   const categoryId = request.nextUrl.searchParams.get('categoryId');
   const propId = request.nextUrl.searchParams.get('propId');
-  const cursor = request.nextUrl.searchParams.get('cursor');
-  const size = request.nextUrl.searchParams.get('size');
+  const cursor = request.nextUrl.searchParams.get('cursor') || 0;
+  const size = request.nextUrl.searchParams.get('size') || CATEGORY_PROP_OPTION_GROUP_DEFAULT_SIZE;
+  const propValue = request.nextUrl.searchParams.get('propValue');
 
-  return await fetch$('/config/propValue?' + qs.stringify({ categoryId, propId, cursor, size }));
+  return NextResponse.json(
+    await fetch$('/config/propValue?' + qs.stringify({ categoryId, propId, cursor, size, propValue })),
+  );
 }
 
 async function Mock(request: NextRequest) {

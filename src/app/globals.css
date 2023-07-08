@@ -1,4 +1,4 @@
-@import "@arco-design/web-react/dist/css/arco.min.css";
+@import '@arco-design/web-react/dist/css/arco.min.css';
 
 @tailwind base;
 @tailwind components;
@@ -28,7 +28,7 @@
   .flex-col-center {
     @apply flex flex-col items-center;
   }
-  
+
   .flex-col-start {
     @apply flex flex-col items-start;
   }
@@ -52,6 +52,22 @@ body {
   border: 4px solid transparent;
   background-clip: padding-box;
   border-radius: 7px;
+}
+
+ul::-webkit-scrollbar {
+  width: 6px;
+}
+
+ul::-webkit-scrollbar-track-piece {
+  background-color: var(--color-bg-2);
+  border-radius: 8px;
+}
+
+ul::-webkit-scrollbar-thumb {
+  background-color: var(--color-text-3);
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  border-radius: 8px;
 }
 
 .arco-form-item-symbol > svg {
