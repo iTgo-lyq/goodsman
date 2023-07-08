@@ -1,7 +1,7 @@
 'use client';
 import { Button, Table, Image, ButtonGroup } from '@arco-design/web-react/client';
 import { IconRefresh, IconSelectAll, Link } from '@arco-design/web-react/server';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const data: any[] = new Array(24)
   .fill({
@@ -24,7 +24,7 @@ export default function RecordsDetail() {
   return (
     <div>
       <div className="flex justify-between">
-        <div>
+        <form>
           <Button className="mr-4" type="primary" disabled={!selectedRowKeys.length}>
             上架商品({selectedRowKeys.length})
           </Button>
@@ -34,7 +34,7 @@ export default function RecordsDetail() {
           <Button status="danger" disabled={!selectedRowKeys.length}>
             删除商品({selectedRowKeys.length})
           </Button>
-        </div>
+        </form>
         <ButtonGroup>
           <Button icon={<IconRefresh />}>刷新</Button>
           <Button icon={<IconSelectAll />}>全选</Button>

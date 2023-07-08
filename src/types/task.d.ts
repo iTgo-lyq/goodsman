@@ -51,3 +51,12 @@ declare interface TaskConfig {
     propValue: any;
   }[];
 }
+
+declare interface RecordItem {
+  id: number;
+  source: { title: string; image: string; url: string };
+  status: string;
+  link: string;
+  log: string;
+  createAt: string;
+}

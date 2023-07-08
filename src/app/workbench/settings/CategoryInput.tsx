@@ -15,6 +15,7 @@ function map2Option(item: CategoryItem) {
 }
 
 export default function CategoryInput() {
+  // '/api/auth/getInfo'
   const { data: categories, mutate } = useSWR<CategoryItem[]>('/category/index.json', jsonFetch);
 
   const options = useMemo(() => categories?.map(map2Option), [categories]);
