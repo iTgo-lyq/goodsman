@@ -37,6 +37,7 @@ export const MockStore = {
       createAt: '',
     },
   ] as RecordItem[],
+  taskMeta: [] as TaskMeta[],
   config: [] as TaskConfig[],
   product: [],
 };

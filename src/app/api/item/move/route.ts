@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
 async function Mock(request: NextRequest) {
   const body: TaskMeta = await request.json();
 
-  MockStore.task.push(body);
+  MockStore.taskMeta.push(body);
 
   return NextResponse.json({ code: 0, msg: 'mock 成功' });
 }
