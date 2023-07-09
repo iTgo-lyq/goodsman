@@ -5,10 +5,7 @@ import { bffFetch } from './bff';
 export async function serverFetch<T>(url: string, init?: RequestInit | undefined): Promise<ResponseBody<T>> {
   const cookieStore = cookies();
 
-  console.log(
-    `[serverFetch] ${SERVER_BASE_URL}${url.startsWith('/') ? url : '/' + url}`,
-    cookieStore.get(COOKIE_KEY_ACCESS_TOKEN)?.value ?? '',
-  );
+  console.log(`[serverFetch] token ${cookieStore.get(COOKIE_KEY_ACCESS_TOKEN)?.value}`);
   const response = await bffFetch(SERVER_BASE_URL + (url.startsWith('/') ? url : '/' + url), {
     ...init,
     headers: {
@@ -19,11 +16,16 @@ export async function serverFetch<T>(url: string, init?: RequestInit | undefined
     },
   });
 
-  const responseBody = await response.json();
+  try {
+    const responseBody = await response.json();
 
-  console.log(`[serverFetch] ${SERVER_BASE_URL}${url.startsWith('/') ? url : '/' + url}`, responseBody);
-
-  return responseBody;
+    return responseBody;
+  } catch (error) {
+    return {
+      code: 20001,
+      msg: `服务请求错误 STATUS ${response.status} | ERROR ${error}`,
+    };
+  }
 }
 
 export default serverFetch;

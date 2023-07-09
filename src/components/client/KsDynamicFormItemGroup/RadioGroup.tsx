@@ -5,12 +5,18 @@ import { Cascader, List, Spin } from '@arco-design/web-react/client';
 import { CATEGORY_PROP_OPTION_GROUP_DEFAULT_SIZE, CATEGORY_PROP_OPTION_GROUP_MAX_CURSOR } from '@/constants';
 import style from './index.module.css';
 
-export default function KsRadioGroup(props: CategoryPropConfigParam & { categoryId: string }) {
+export default function KsRadioGroup(
+  props: CategoryPropConfigParam & { categoryId: string; rootField: string } & {
+    name: string;
+    value: any;
+    onChange: any;
+  },
+) {
   const [LoadingNode, setLoadingNode] = useState<ReactNode | null>(<Spin loading={true} />);
   const [options, setOptions] = useState<CategoryPropValueParam[]>([]);
   const [cursor, setCursor] = useState(0);
   const [propValue, setPropValue] = useState('');
-  const { data: latestData, isLoading } = useClientFetch<{
+  const { data: latestData } = useClientFetch<{
     total: number;
     cursor: number;
     propValues: CategoryPropValueParam[];
@@ -18,7 +24,7 @@ export default function KsRadioGroup(props: CategoryPropConfigParam & { category
     `/api/config/propValue?categoryId=${props.categoryId}&propId=${props.propId}&cursor=${cursor}&propValue=${propValue}`,
   );
   const total = useMemo(() => latestData?.total ?? 0, [latestData]);
-  const scrollLoading = useMemo(() => (isLoading ? <Spin loading={true} /> : null), [isLoading]);
+  const [propId, setPropId] = useState<number[]>([]);
 
   const search = useCallback((text: string) => {
     setLoadingNode(<Spin loading={true} />);
@@ -34,7 +40,15 @@ export default function KsRadioGroup(props: CategoryPropConfigParam & { category
       return setLoadingNode(null);
 
     setCursor(nextCur);
-  }, [cursor, total, scrollLoading]);
+  }, [cursor, total]);
+
+  const onChange = useCallback(
+    (v: any[]) => {
+      setPropId(!v ? [] : v.flat().map(item => options.find(it => it.propValue === item)!.propValueId));
+      props.onChange(v);
+    },
+    [props.onChange, options, setPropId],
+  );
 
   useEffect(() => {
     setOptions(opts => {
@@ -46,16 +60,19 @@ export default function KsRadioGroup(props: CategoryPropConfigParam & { category
     if (latestData?.total === latestData?.cursor) setLoadingNode(null);
   }, [latestData]);
 
-  useEffect(() => {}, []);
-
   return (
-    <Cascader
-      options={options.map(it => ({ label: it.propValue, value: it.propValue }))}
-      allowClear
-      showSearch
-      onSearch={search}
-      dropdownRender={menu => (
-        <>
+    <div>
+      <input type="hidden" name={props.rootField + '.propValueId'} value={String(propId)} />
+      <input type="hidden" name={props.name} value={props.value?.flat() || ''} />
+      <Cascader
+        value={props.value}
+        onChange={onChange}
+        options={options.map(it => ({ label: it.propValue, value: it.propValue }))}
+        allowClear
+        showSearch
+        onSearch={search}
+        mode={props.propInputType === 'CHECKBOX' ? 'multiple' : undefined}
+        dropdownRender={menu => (
           <List
             style={{ maxHeight: 200 }}
             className={style['list-inner-cascader-menu']}
@@ -63,10 +80,12 @@ export default function KsRadioGroup(props: CategoryPropConfigParam & { category
             dataSource={[null]}
           >
             {menu}
-            <div className="w-full flex-center"> {LoadingNode}</div>
+            <div key="loading" className="w-full flex-center">
+              {LoadingNode}
+            </div>
           </List>
-        </>
-      )}
-    />
+        )}
+      />
+    </div>
   );
 }

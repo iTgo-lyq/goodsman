@@ -5,7 +5,7 @@ import { UnauthorizedNotificationContent } from '@/components/handless';
 export async function clientFetch<T = null>(url: string, init?: RequestInit | undefined) {
   if (!url) return;
 
-  console.log(`[clientFetch] ${url}`);
+  console.log(`[clientFetch] ${url} start`);
   try {
     const response = await fetch(url, {
       ...init,
@@ -31,6 +31,7 @@ export async function clientFetch<T = null>(url: string, init?: RequestInit | un
     if (body.code === CODE_UNAUTHORIZED) {
       console.error('未授权!', response);
       Notification.error({
+        duration: 6000,
         closable: false,
         title: '未授权!',
         content: UnauthorizedNotificationContent(),
@@ -46,12 +47,14 @@ export async function clientFetch<T = null>(url: string, init?: RequestInit | un
       return;
     }
 
+    console.log(`[clientFetch] ${url} end`, body);
+
     return body.data;
   } catch (error) {
     console.error('内部错误!', error);
     Notification.error({
       closable: false,
-      title: '内部错误!',
+      title: '网络错误!',
       content: (error as Error).message,
     });
   }

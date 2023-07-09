@@ -1,8 +1,8 @@
 import { getServerUserInfo, loginOut } from '@/server';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Dropdown, Menu, MenuItem } from '@arco-design/web-react/client';
-import { Avatar, Divider, IconExport, IconImport } from '@arco-design/web-react/server';
+import { Dropdown, Menu, MenuItem, Avatar } from '@arco-design/web-react/client';
+import { Divider, IconExport, IconImport, Avatar as BAvatar } from '@arco-design/web-react/server';
 
 export default async function UserInfo(props: { className?: string }) {
   const userInfo = await getServerUserInfo();
@@ -35,9 +35,15 @@ export default async function UserInfo(props: { className?: string }) {
 
   return (
     <Dropdown trigger="click" droplist={userInfo ? DetailDroplist : LoginDropList} position="br">
-      <Avatar size={32} className={'cursor-pointer ' + props.className ?? ''}>
-        <Image src={userInfo?.head || '/img/default_avatar.jpg'} alt="头像" width={32} height={32} />
-      </Avatar>
+      {!userInfo?.sellerId ? (
+        <Avatar size={32} className={'cursor-pointer ' + props.className ?? ''}>
+          '未登录'
+        </Avatar>
+      ) : (
+        <BAvatar size={32} className={'cursor-pointer ' + props.className ?? ''}>
+          <Image src={userInfo?.head || '/img/default_avatar.jpg'} alt="头像" width={32} height={32} />
+        </BAvatar>
+      )}
     </Dropdown>
   );
 }

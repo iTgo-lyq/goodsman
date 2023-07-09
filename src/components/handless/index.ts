@@ -1,2 +1,3 @@
 export { default as Logo } from './Logo';
 export { default as UnauthorizedNotificationContent } from './UnauthorizedNotificationContent';
+export { default as FormFieldWrapper } from './FormFieldWrapper';

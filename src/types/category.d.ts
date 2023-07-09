@@ -47,17 +47,18 @@ interface AggregateUnitPropDTO {
  */
 interface CategoryPropConfigParam {
   propId: string; // 属性id
-  propName: string; // 属性名称
-  sortNum: number; // 排序顺序
-  required: boolean; // 是否必填
+  propName?: string; // 属性名称
+  sortNum?: number; // 排序顺序
+  required?: boolean; // 是否必填
 
-  preConstraint: boolean; // 是否有前置条件
-  prePropValues: CategoryPrePropValueParam[]; // 前置条件信息列表
+  preConstraint?: boolean; // 是否有前置条件
+  prePropValues?: CategoryPrePropValueParam[]; // 前置条件信息列表
 
-  propValueMaximum: number; // 最大可选数量
-  propInputConfig: CategoryPropInputConfigParam; // 输入规则
-  unitProp: AggregateUnitPropDTO[]; // 单位属性结构体
-  customInput: boolean; // 是否支持自定义属性输入
+  propValueMaximum?: number; // 最大可选数量
+  propInputConfig?: CategoryPropInputConfigParam; // 输入规则
+  unitProp?: AggregateUnitPropDTO[]; // 单位属性结构体
+  // TODO: 含义不明, 无法实现
+  customInput?: boolean; // 是否支持自定义属性输入
 
   propInputType:
     | 'TEXT'

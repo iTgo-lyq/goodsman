@@ -14,7 +14,7 @@ export function prefixHost(url: string) {
 }
 
 export async function sameOriginFetch(url: string, init?: RequestInit | undefined) {
-  console.log(`[sameOriginFetch] ${prefixHost(url)}`);
+  console.log('[sameOriginFetch]');
   const response = await bffFetch(prefixHost(url), {
     ...init,
     headers: {

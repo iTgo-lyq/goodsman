@@ -8,7 +8,7 @@ declare interface TaskMeta extends QueryBody {
 
 declare interface CategoryItem {
   categoryName: string;
-  categoryId: number;
+  categoryId: string;
   childCategory?: CategoryItem[];
 }
 
@@ -25,8 +25,8 @@ declare interface TaskConfig {
   isLimited: 0 | 1; //0限购，1不限购 ????
   limitedNum: number; //限购数量
   titleReplace: { beforeReplace: number; afterReplace: number }[];
-  titlePrefix: number; // 标题前缀
-  titleSuffix: number; //标题后缀
+  titlePrefix: string; // 标题前缀
+  titleSuffix: string; //标题后缀
   shortTitle: 0 | 1 | 2; //0不填短标题 1截取前20字符  2截取后20字符
   isPresell: 0 | 1; //0预售  1不预售 ????
   presellTime: number; //预售发货时间  3~15 天
@@ -45,10 +45,12 @@ declare interface TaskConfig {
   ];
   // 类目下的属性与属性值
   prop: {
-    propId: number;
+    propId: string;
     propName: string;
-    propValueId: number;
+    propValueId: string;
     propValue: any;
+    unitPropValueId: string;
+    unitPropValueName: string;
   }[];
 }
 

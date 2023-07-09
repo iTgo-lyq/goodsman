@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server';
 import fetch$ from '@/utils/fetch/server';
 import { cookies } from 'next/headers';
-import { COOKIE_KEY_ACCESS_TOKEN } from '@/constants';
+import { COOKIE_KEY_ACCESS_TOKEN, DEFAULT_GET_REVALIDATE } from '@/constants';
 
 export async function GET(request: NextRequest) {
   // return await Mock(request);

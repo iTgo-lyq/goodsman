@@ -6,7 +6,7 @@ import fetch$ from '@/utils/fetch/server';
 import { COOKIE_KEY_ACCESS_TOKEN } from '@/constants';
 
 export async function GET(request: NextRequest) {
-  // return await Mock(request);
+  return await Mock();
   const url = request.nextUrl.clone();
   const code = url.searchParams.get('code');
 
@@ -22,7 +22,7 @@ async function Mock() {
     code: 0,
     data: {
       token:
-        'eyJhbGciOiJIUzI1NiJ9.eyJvcGVuaWQiOiJmMTgxOTVhZmJmMDVjYzZjMTRiZjU3MjQwYTkxYzA1ZiIsImV4cCI6MTY4OTQxODM0NywiaWF0IjoxNjg4ODEzNTQ3fQ.Cb9_IoNItdRq7kDsilQQiyp0nQ12iA_oymohPI4eyeQ',
+        'eyJhbGciOiJIUzI1NiJ9.eyJvcGVuaWQiOiJmMTgxOTVhZmJmMDVjYzZjMTRiZjU3MjQ5ZTY1NTk0YSIsImV4cCI6MTY4OTQyMjUxNSwiaWF0IjoxNjg4ODE3NzE1fQ.84v-8YJwdBaABWFbhwbYBEwPaXoOMCIAsrw3LsiXCOE',
     },
     msg: 'success',
   };

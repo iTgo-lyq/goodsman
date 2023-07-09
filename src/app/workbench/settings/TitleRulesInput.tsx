@@ -14,16 +14,16 @@ export default function MatchRadio() {
             columns={[
               {
                 title: '替换前',
-                render: () => (
-                  <FormItem className="m-0" field="titleReplace.beforeReplace" rules={[{ required: true }]}>
+                render: (_, __, idx) => (
+                  <FormItem className="m-0" field={`titleReplace[${idx}].beforeReplace`} rules={[{ required: true }]}>
                     <Input placeholder="匹配字符" />
                   </FormItem>
                 ),
               },
               {
                 title: '替换后',
-                render: () => (
-                  <FormItem className="m-0" field="titleReplace.afterReplace">
+                render: (_, __, idx) => (
+                  <FormItem className="m-0" field={`titleReplace[${idx}].afterReplace`}>
                     <Input placeholder="空值则删除匹配字符" />
                   </FormItem>
                 ),

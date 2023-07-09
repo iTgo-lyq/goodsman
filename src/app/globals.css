@@ -73,3 +73,9 @@ ul::-webkit-scrollbar-thumb {
 .arco-form-item-symbol > svg {
   display: inline-block;
 }
+
+.arco-form-item-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

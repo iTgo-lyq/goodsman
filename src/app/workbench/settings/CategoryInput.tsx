@@ -4,6 +4,7 @@ import { useClientFetch, useJsonFetch } from '@/utils/hooks';
 import { Cascader, FormItem, Button, useFormContext } from '@arco-design/web-react/client';
 import { IconRefresh } from '@arco-design/web-react/server';
 import { KsDynamicFormItemGroup } from '@/components/client';
+import { DEFAULT_TASK_SETTINGS_FROM_VALUE } from '@/constants';
 
 function map2Option(item: CategoryItem) {
   return {
@@ -16,7 +17,10 @@ function map2Option(item: CategoryItem) {
 export default function CategoryInput() {
   const { form } = useFormContext();
   const { data: categories, mutate: mutateCategories } = useJsonFetch<CategoryItem[]>('/category/index.json');
-  const [categoryId, setCategoryId] = useState<string>();
+  const [categoryId, setCategoryId] = useState<string | undefined>(
+    DEFAULT_TASK_SETTINGS_FROM_VALUE['category.categoryId'],
+  );
+  const [categoryGroup, setCategoryGroup] = useState<string[]>([]);
   const { data: categoryPropList, isLoading } = useClientFetch<CategoryPropConfigParam[]>(
     categoryId ? `/api/config/prop?categoryId=${categoryId}` : '',
   );
@@ -40,7 +44,29 @@ export default function CategoryInput() {
     <>
       <FormItem label="商品类目">
         <div className="max-w-[500px] w-full flex-row-center">
-          <FormItem noStyle field="category">
+          <input
+            type="hidden"
+            name="category.categoryName"
+            value={
+              categoryGroup.reduce(
+                (pre, cur) => {
+                  return pre.childCategory?.find(it => it.categoryId == cur) as any;
+                },
+                {
+                  categoryId: '',
+                  categoryName: '',
+                  childCategory: categories,
+                },
+              ).categoryName
+            }
+          />
+          <input type="hidden" name="category.categoryId" value={categoryId} />
+          <FormItem
+            noStyle
+            field="category.categoryId"
+            initialValue={categoryId}
+            rules={[{ required: true, message: '商品类目为必填!' }]}
+          >
             <Cascader
               className="flex-1 rounded-r-none"
               dropdownMenuClassName="i-scroll-mini"
@@ -49,7 +75,8 @@ export default function CategoryInput() {
               loadMore={loadMore}
               allowClear
               onChange={v => {
-                setCategoryId(v[v.length - 1] as string);
+                setCategoryGroup(v.flat());
+                setCategoryId(v ? v.flat()[v.flat()?.length - 1] : undefined);
               }}
             />
           </FormItem>
@@ -60,7 +87,7 @@ export default function CategoryInput() {
       </FormItem>
       {categoryPropList?.length || isLoading ? (
         <KsDynamicFormItemGroup
-          categoryId={categoryId!}
+          categoryId={String(categoryId!)}
           isLoading={isLoading}
           label="商品属性"
           rootField="prop"
