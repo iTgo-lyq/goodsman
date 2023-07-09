@@ -58,14 +58,50 @@ export async function loginOut() {
   cookies().delete(COOKIE_KEY_ACCESS_TOKEN);
 }
 
-export async function startTask(formData: FormData) {
+// 开启新增商品数量达到上限任务
+export async function startLimitedTask(formData: FormData) {
   // const it = await fetch$('/api/mock/records');
   // const result: ResponseBody<RecordItem[]> = await it.json();
-  const selectedRowKeys = formData.get('selectedRowKeys');
-  console.log(selectedRowKeys);
+  // const selectedRowKeys = formData.get('selectedRowKeys');
+  // console.log(selectedRowKeys);
   // MockStore.task.forEach((item,index)=>{
 
   //   item.status == '运行中'
   // })
   // return result.data;
+  forceRefresh();
+}
+
+// 刷新带筛选条件的搬家记录表格
+export async function refreshFilterTask(formData: FormData) {
+  // const it = await fetch$('/api/mock/records');
+  // const result: ResponseBody<RecordItem[]> = await it.json();
+  // const selectedRowKeys = formData.get('selectedRowKeys');
+  // console.log(selectedRowKeys);
+  // MockStore.task.forEach((item,index)=>{
+
+  //   item.status == '运行中'
+  // })
+  // return result.data;
+  forceRefresh();
+}
+
+// 上架商品
+export async function listGoods(formData: FormData) {
+  forceRefresh();
+}
+
+// 下架商品
+export async function delistGoods(formData: FormData) {
+  forceRefresh();
+}
+
+// 删除商品
+export async function deleteGoods(formData: FormData) {
+  forceRefresh();
+}
+
+// 刷新带筛选条件的商品表格
+export async function refreshFilterGoods(formData: FormData) {
+  forceRefresh();
 }

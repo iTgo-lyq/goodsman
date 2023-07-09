@@ -5,13 +5,13 @@ import { MockStore } from '@/utils/mock';
 
 export async function GET(request: NextRequest) {
   const statusStr2intMap: any = {
-    全部: 0,
-    执行中: 1,
-    成功: 2,
-    失败: 3,
+    所有商品: 0,
+    已上架商品: 1,
+    未上架商品: 2,
+    上架失败商品: 3,
   };
   const statusStr = (
-    request.nextUrl.searchParams.get('status') ? request.nextUrl.searchParams.get('status') : '全部'
+    request.nextUrl.searchParams.get('status') ? request.nextUrl.searchParams.get('status') : '所有商品'
   ) as string;
   const status = statusStr2intMap[statusStr];
   const startTime = request.nextUrl.searchParams.get('startTime') as string;
@@ -19,6 +19,7 @@ export async function GET(request: NextRequest) {
   const itemKeyword = request.nextUrl.searchParams.get('itemKeyword') as string;
   const shopKeyword = request.nextUrl.searchParams.get('shopKeyword') as string;
   return await MockGET(1, 10, status, itemKeyword, shopKeyword, startTime, endTime);
+  // return await MockGET();
 
   return await fetch$('/config/get');
 }
@@ -34,7 +35,26 @@ async function MockGET(
 ) {
   return NextResponse.json({
     code: 0,
-    data: MockStore.task || null,
+    data: MockStore.goods || null,
     msg: 'mock 数据',
   });
+}
+
+/** 上架/下架/删除 */
+export async function POST(request: NextRequest) {
+  return await MockPOST(request);
+
+  const body: TaskMeta = await request.json();
+
+  const req = await fetch$('/item/move?' + qs.stringify(body));
+
+  return NextResponse.json(req);
+}
+
+async function MockPOST(request: NextRequest) {
+  const body: TaskMeta = await request.json();
+
+  // MockStore.task.push(body);
+
+  return NextResponse.json({ code: 0, msg: 'mock 成功' });
 }
