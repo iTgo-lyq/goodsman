@@ -43,7 +43,7 @@ export async function getServerRecordDetailTable(search: {
 }) {
   // ?status=${search.status}&name=${search.itemKeyword}&shopName=${search.shopKeyword}&startTime=${search.createAtRange?.length?search.createAtRange[0]:''}&endTime=${search.createAtRange?.length?search.createAtRange[1]:''}
   const it = await sameOriginFetch(
-    `/api/mock/goods?status=${search.status}&name=${search.itemKeyword}&shopName=${search.shopKeyword}&startTime=${
+    `/api/mock/records?status=${search.status}&name=${search.itemKeyword}&shopName=${search.shopKeyword}&startTime=${
       search.createAtRange?.length ? search.createAtRange[0] : ''
     }&endTime=${search.createAtRange?.length ? search.createAtRange[1] : ''}`,
   );
