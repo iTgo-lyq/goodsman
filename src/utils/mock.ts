@@ -40,4 +40,16 @@ export const MockStore = {
   taskMeta: [] as TaskMeta[],
   config: [] as TaskConfig[],
   product: [],
+  goods: [
+    {
+      id: 1,
+      source: {
+        title: '我是商品名称',
+        image: 'https://cbu01.alicdn.com/img/ibank/O1CN012HRVaC28L7bsIvdi3_!!2929267915-0-cib.jpg',
+      },
+      status: '运行中',
+      shopName: 'ahahha',
+      message: '2023.12',
+    },
+  ] as GoodsItem[],
 };

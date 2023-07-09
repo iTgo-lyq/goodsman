@@ -41,11 +41,40 @@ export async function getServerRecordDetailTable(search: {
   itemKeyword: string;
   shopKeyword: string;
 }) {
-  const it = await sameOriginFetch('/api/mock/records');
+  // ?status=${search.status}&name=${search.itemKeyword}&shopName=${search.shopKeyword}&startTime=${search.createAtRange?.length?search.createAtRange[0]:''}&endTime=${search.createAtRange?.length?search.createAtRange[1]:''}
+  const it = await sameOriginFetch(
+    `/api/mock/records?status=${search.status}&name=${search.itemKeyword}&shopName=${search.shopKeyword}&startTime=${
+      search.createAtRange?.length ? search.createAtRange[0] : ''
+    }&endTime=${search.createAtRange?.length ? search.createAtRange[1] : ''}`,
+  );
   const result: ResponseBody<RecordItem[]> = await it.json();
-
+  // console.log(search)
+  // console.log(111)
   if (!result.data || !result.data.length) return;
+  if (search.status) result.data = result.data?.filter(item => item.status == search.status);
+  if (search.createAtRange?.length) result.data = result.data?.filter(item => item.status == search.status);
+  if (search.itemKeyword) result.data = result.data?.filter(item => item.status == search.status);
+  if (search.shopKeyword) result.data = result.data?.filter(item => item.status == search.status);
 
+  return result.data;
+}
+
+export async function getServerGoodsTable(search: {
+  status: string;
+  createAtRange: string[];
+  itemKeyword: string;
+  shopKeyword: string;
+}) {
+  // ?status=${search.status}&name=${search.itemKeyword}&shopName=${search.shopKeyword}&startTime=${search.createAtRange?.length?search.createAtRange[0]:''}&endTime=${search.createAtRange?.length?search.createAtRange[1]:''}
+  const it = await sameOriginFetch(
+    `/api/mock/goods?status=${search.status}&name=${search.itemKeyword}&shopName=${search.shopKeyword}&startTime=${
+      search.createAtRange?.length ? search.createAtRange[0] : ''
+    }&endTime=${search.createAtRange?.length ? search.createAtRange[1] : ''}`,
+  );
+  const result: ResponseBody<GoodsItem[]> = await it.json();
+  // console.log(search)
+  // console.log(111)
+  if (!result.data || !result.data.length) return;
   if (search.status) result.data = result.data?.filter(item => item.status == search.status);
   if (search.createAtRange?.length) result.data = result.data?.filter(item => item.status == search.status);
   if (search.itemKeyword) result.data = result.data?.filter(item => item.status == search.status);

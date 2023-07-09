@@ -1,24 +1,28 @@
 'use client';
 import { useRef } from 'react';
 import { useQueryString } from '@/utils/hooks';
-import { AutoComplete, DateRangePicker, Button, Form, FormItem, InputTag } from '@arco-design/web-react/client';
+import { AutoComplete, DateRangePicker, Button, Form, FormItem, InputTag, Select } from '@arco-design/web-react/client';
 import { IconSearch, IconRefresh } from '@arco-design/web-react/server';
 
 export default function FilterBoard() {
   const formInstance = useRef<FormInstance>(null);
   const [searchParams, setSearchParams] = useQueryString();
-
   return (
     <div className="flex-row-stretch">
       <Form ref={formInstance} className="mr-4 flex-row flex-wrap">
         <div className="flex-1 flex-col">
-          <FormItem label="任务状态" field="status" initialValue={searchParams.get('status')}>
-            <AutoComplete data={['执行中', '成功', '失败']} allowClear />
+          <FormItem label="商品状态" field="status" initialValue={searchParams.get('status')}>
+            <Select
+              mode="multiple"
+              defaultValue={['所有商品']}
+              allowClear
+              options={['所有商品', '已上架商品', '上架失败商品', '未上传商品', '新增达到上限商品']}
+            ></Select>
           </FormItem>
           <FormItem
             className="mb-0"
-            field="createAtRange"
             label="创建时间"
+            field="createAtRange"
             initialValue={searchParams.get('createAtRange')}
           >
             <DateRangePicker className="w-full" />
@@ -30,8 +34,8 @@ export default function FilterBoard() {
           </FormItem>
           <FormItem
             className="mb-0"
-            field="shopKeyword"
             label="店铺名称"
+            field="shopKeyword"
             initialValue={searchParams.get('shopKeyword')}
           >
             <InputTag allowClear saveOnBlur placeholder="店铺关键字" />

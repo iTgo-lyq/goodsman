@@ -1,28 +1,26 @@
 'use client';
-import { useEffect, useState } from 'react';
+
 import { useQueryString } from '@/utils/hooks';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Button, Table, Image } from '@arco-design/web-react/client';
 
-interface RecordTableProps {
-  data: RecordItem[];
+interface GoodsTableProps {
+  data: GoodsItem[];
 }
 
-export default function RecordsDetailTable(props: RecordTableProps) {
+export default function GoodsTable(props: GoodsTableProps) {
   const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
   const [_, setSearchParams] = useQueryString();
-
   useEffect(() => {
     setSearchParams('selectedRowKeys', selectedRowKeys);
   }, [selectedRowKeys]);
-
   useEffect(() => {
     setSearchParams(
       'selectedRowKeys',
       selectedRowKeys.filter(item => props.data.find(it => it.id === item)),
     );
   }, [props.data]);
-
   return (
     <>
       <input type="hidden" value={selectedRowKeys.map(String)} name="selectedRowKeys" />
@@ -32,46 +30,50 @@ export default function RecordsDetailTable(props: RecordTableProps) {
         border={false}
         data={props.data}
         pagination={{ showTotal: true, sizeCanChange: true }}
-        // rowSelection={{
-        //   type: 'checkbox',
-        //   onChange(selectedRowKeys) {
-        //     setSelectedRowKeys(selectedRowKeys as any);
-        //   },
-        // }}
+        rowSelection={{
+          type: 'checkbox',
+          checkAll: true,
+          checkCrossPage: true,
+          onChange(selectedRowKeys) {
+            setSelectedRowKeys(selectedRowKeys as any);
+          },
+        }}
         columns={[
           {
-            title: '商品来源',
+            title: '商品',
             render(col, item, index) {
               return (
                 <div className="overflow-hidden">
                   <Image src={item.source.image} loader lazyload alt="商品图" width={72} height={72} />
-                  <Link
-                    className="ml-2 max-w-[300px] overflow-hidden whitespace-nowrap text-ellipsis"
-                    href={item.source.url}
-                  >
-                    {item.source.title}
-                  </Link>
                 </div>
               );
             },
           },
           {
-            title: '任务状态',
-            dataIndex: 'status',
-          },
-          {
-            title: '新商品地址',
-            render(_, item) {
-              return <Link href={item.link}>链接</Link>;
+            title: '名称',
+            render(col, item, index) {
+              return (
+                // <Link
+                //   className="ml-2 max-w-[300px] overflow-hidden whitespace-nowrap text-ellipsis"
+                //   href={item.source.url}
+                // >
+                <div>{item.source.title}</div>
+                // </Link>
+              );
             },
           },
           {
-            title: '日志',
-            dataIndex: 'log',
+            title: '店铺',
+            render(_, item) {
+              return (
+                // <Link href={item.link}>店铺名称</Link>;
+                <div>{item.shopName}</div>
+              );
+            },
           },
           {
-            title: '创建时间',
-            dataIndex: 'createAt',
+            title: '状态',
+            dataIndex: 'status',
           },
           {
             title: '操作',
