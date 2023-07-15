@@ -19,7 +19,6 @@ export async function clientFetch<T = null>(url: string, init?: RequestInit | un
     if (response.status !== 200) {
       console.error('请求出错', response);
       Notification.error({
-        closable: false,
         title: '请求出错!',
         content: `PATH: ${url} | STATUS: ${response.status}`,
       });
@@ -32,7 +31,6 @@ export async function clientFetch<T = null>(url: string, init?: RequestInit | un
       console.error('未授权!', response);
       Notification.error({
         duration: 6000,
-        closable: false,
         title: '未授权!',
         content: UnauthorizedNotificationContent(),
       });
@@ -40,9 +38,8 @@ export async function clientFetch<T = null>(url: string, init?: RequestInit | un
     } else if (body.code !== CODE_SUCCESS) {
       console.error('服务错误!', response, body);
       Notification.error({
-        closable: false,
         title: '服务错误!',
-        content: `PATH: ${url} | CODE: ${body.code} | MSG: ${body.msg || body.message || '未知原因'}`,
+        content: `PATH: ${url} | CODE: ${body.code} | MSG: ${body.message || body.message || '未知原因'}`,
       });
       return;
     }
@@ -53,7 +50,6 @@ export async function clientFetch<T = null>(url: string, init?: RequestInit | un
   } catch (error) {
     console.error('内部错误!', error);
     Notification.error({
-      closable: false,
       title: '网络错误!',
       content: (error as Error).message,
     });

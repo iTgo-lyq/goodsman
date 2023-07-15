@@ -18,9 +18,9 @@ export async function sameOriginFetch(url: string, init?: RequestInit | undefine
   const response = await bffFetch(prefixHost(url), {
     ...init,
     headers: {
-      ...init?.headers,
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      ...init?.headers,
     },
   });
 

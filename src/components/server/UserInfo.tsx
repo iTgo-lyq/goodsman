@@ -5,7 +5,7 @@ import { Dropdown, Menu, MenuItem, Avatar } from '@arco-design/web-react/client'
 import { Divider, IconExport, IconImport, Avatar as BAvatar } from '@arco-design/web-react/server';
 
 export default async function UserInfo(props: { className?: string }) {
-  const userInfo = await getServerUserInfo();
+  const { data: userInfo } = await getServerUserInfo();
 
   const DetailDroplist = (
     <Menu className="max-w-[200px] shadow-md" selectedKeys={[]}>
@@ -37,7 +37,7 @@ export default async function UserInfo(props: { className?: string }) {
     <Dropdown trigger="click" droplist={userInfo ? DetailDroplist : LoginDropList} position="br">
       {!userInfo?.sellerId ? (
         <Avatar size={32} className={'cursor-pointer ' + props.className ?? ''}>
-          '未登录'
+          未登录
         </Avatar>
       ) : (
         <BAvatar size={32} className={'cursor-pointer ' + props.className ?? ''}>

@@ -38,11 +38,24 @@ export const DEFAULT_TASK_META_FROM_VALUE: TaskMeta = {
   isFilter: 1, //是否过滤已复制商品 1表示过滤，0表示不过滤
 };
 
-export const DEFAULT_TASK_SETTINGS_FROM_VALUE: Omit<TaskConfig, 'category' | 'prop' | 'expressTemplateId'> & {
-  refunds: ('freshRotRefund' | 'freshRotRefund' | 'allergyRefund')[];
+export const DEFAULT_TASK_SETTINGS_FROM_VALUE: Omit<
+  TaskConfig,
+  'category' | 'prop' | 'expressTemplateId' | 'freshRotRefund' | 'brokenRefund' | 'allergyRefund'
+> & {
+  prop: {
+    propId: string;
+    propName: string;
+    propValueId: string[];
+    propValue: string[];
+    unitPropValueId?: string;
+    unitPropValueName?: string;
+  }[];
+  category: {
+    categoryId: string[];
+    categoryName: string;
+  };
+  refunds: ('freshRotRefund' | 'brokenRefund' | 'allergyRefund')[];
   expressTemplateId?: number;
-  'category.categoryId'?: string;
-  'category.categoryName'?: string;
 } = {
   match: 0,
   sell: 0,
@@ -52,9 +65,9 @@ export const DEFAULT_TASK_SETTINGS_FROM_VALUE: Omit<TaskConfig, 'category' | 'pr
   decimalPlace: 0,
   isWholeSale: 0,
   inventory: 0,
-  inventoryNum: 0,
+  inventoryNum: 1,
   isLimited: 0,
-  limitedNum: 0,
+  limitedNum: 1,
   titleReplace: [],
   titlePrefix: '',
   titleSuffix: '',
@@ -66,14 +79,41 @@ export const DEFAULT_TASK_SETTINGS_FROM_VALUE: Omit<TaskConfig, 'category' | 'pr
   expressTemplateId: undefined,
   afterSaleService: 0,
   refunds: [],
-  freshRotRefund: false,
-  brokenRefund: false,
-  allergyRefund: false,
-  'category.categoryId': undefined,
-  'category.categoryName': undefined,
-  // 'prop.102.propName': '',
-  // 'prop.102.propValueId': '',
-  // 'prop.102.propValue': '',
-  // 'prop.102.unitPropValueId': '',
-  // 'prop.102.unitPropValueName': '',
+  category: {
+    categoryId: [],
+    categoryName: '',
+  },
+  prop: [],
+};
+
+export enum SERVER_RECORD_STATUS {
+  IDLE = 0,
+  PENDING = 1,
+  SUCCESS = 2,
+  FAILED = 3,
+}
+
+export const SERVER_RECORD_STATUS_TITLE: Record<SERVER_RECORD_STATUS, string> = {
+  [SERVER_RECORD_STATUS.IDLE]: '待运行',
+  [SERVER_RECORD_STATUS.PENDING]: '运行中',
+  [SERVER_RECORD_STATUS.SUCCESS]: '成功',
+  [SERVER_RECORD_STATUS.FAILED]: '失败',
+};
+
+export enum SERVER_GOODS_STATUS {
+  ALL = 0,
+  ONLINE = 1,
+  OFFLINE = 2,
+  FAILED = 3,
+  IDLE = 4,
+  LIMITED = 5,
+}
+
+export const SERVER_GOODS_STATUS_TITLE: Record<SERVER_GOODS_STATUS, string> = {
+  [SERVER_GOODS_STATUS.ALL]: '所有商品',
+  [SERVER_GOODS_STATUS.ONLINE]: '已上架',
+  [SERVER_GOODS_STATUS.OFFLINE]: '未上架',
+  [SERVER_GOODS_STATUS.FAILED]: '上架失败',
+  [SERVER_GOODS_STATUS.IDLE]: '待上传(手动配置/执行中)',
+  [SERVER_GOODS_STATUS.LIMITED]: '上限/余额不足',
 };

@@ -1,8 +1,14 @@
 declare interface ResponseBody<T> {
   code: number;
   data?: T;
-  msg?: string;
   message?: string;
+}
+
+declare interface ActionResult<T> {
+  code: number;
+  data?: T;
+  msg?: string;
+  title?: string;
 }
 
 declare interface QueryBody {
@@ -15,3 +21,6 @@ declare interface QueryBody {
     | ReadonlyArray<boolean>
     | null;
 }
+
+declare type UnwrapResponseBody<T> = T extends ResponseBody<infer U> ? U : T;
+declare type UnwrapActionResult<T> = T extends ActionResult<infer U> ? U : T;

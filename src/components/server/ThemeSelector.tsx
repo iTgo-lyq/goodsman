@@ -1,6 +1,6 @@
 import { HTMLAttributes } from 'react';
 import { THEME } from '@/constants';
-import { setThemeAuto, setThemeDark, setThemeLight, getServerTheme } from '@/server';
+import { setThemeAuto, setThemeDark, setThemeLight, getTheme } from '@/server';
 import { Dropdown, Menu, MenuItem } from '@arco-design/web-react/client';
 import { Button, IconDesktop, IconMoonFill, IconSunFill } from '@arco-design/web-react/server';
 
@@ -10,10 +10,10 @@ const IconMap = {
   [THEME.AUTO]: <IconDesktop />,
 };
 
-export default function ThemeSelector(props: HTMLAttributes<unknown>) {
+export default async function ThemeSelector(props: HTMLAttributes<unknown>) {
   const { children, ...rest } = props;
 
-  const theme = getServerTheme();
+  const theme = await getTheme();
 
   const Droplist = (
     <form className="shadow-md">

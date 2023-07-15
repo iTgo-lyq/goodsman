@@ -1,4 +1,4 @@
-import { HREF_KS_AUTH_MOBILE } from '@/constants';
+import { HREF_KS_AUTH_MOBILE, HREF_KS_SERVICE } from '@/constants';
 import Link from 'next/link';
 import Image from 'next/image';
 import { TypographyText } from '@arco-design/web-react/client';
@@ -46,8 +46,8 @@ export default function MobileAuth() {
               <div className="mb-1">
                 <TypographyText>使用电脑端访问「快手小店-本店授权服务」，使用应用.</TypographyText>
               </div>
-              <Link className="border-b border-dotted " href="https://s.kwaixiaodian.com/zone-origin/service/mine">
-                https://s.kwaixiaodian.com/zone-origin/service/mine
+              <Link className="border-b border-dotted " href={HREF_KS_SERVICE}>
+                {HREF_KS_SERVICE}
               </Link>
             </>
           }

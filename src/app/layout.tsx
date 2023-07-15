@@ -1,6 +1,6 @@
 import { PropsWithChildren, ReactNode } from 'react';
 import { Metadata } from 'next';
-import { getServerTheme } from '@/server';
+import { getTheme } from '@/server';
 import NextTopLoader from 'nextjs-toploader';
 import { WebVitals } from '@/components/client';
 import './globals.css';
@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no',
 };
 
-export default function RootLayout(props: PropsWithChildren & { fullPage: ReactNode }) {
-  const theme = getServerTheme();
+export default async function RootLayout(props: PropsWithChildren & { fullPage: ReactNode }) {
+  const theme = await getTheme();
 
   return (
     <html lang="cn">

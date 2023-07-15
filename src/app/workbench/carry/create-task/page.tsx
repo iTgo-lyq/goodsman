@@ -1,24 +1,20 @@
-import { getServerUserInfo } from '@/server';
+import { getServerUserInfo, postTask } from '@/server';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Form, FormItem, Radio, RadioGroup, Checkbox, Switch, TypographyText } from '@arco-design/web-react/client';
 import { Button, Card, Divider, IconCheck, IconClose, IconLaunch } from '@arco-design/web-react/server';
 import LinksInput from './LinksInput';
-import style from './index.module.css';
+import SubmitButton from './SubmitButton';
 
 export default async function WorkplaceTaskCreator() {
-  const userInfo = await getServerUserInfo();
+  const { data: userInfo } = await getServerUserInfo();
 
   return (
     <Form className="py-4" size="large">
-      <FormItem label="搬运模式" field="mode">
-        <RadioGroup type="button" defaultValue="multi-goods">
-          <Radio id="mode" value="multi-goods">
-            多商品搬运
-          </Radio>
-          <Radio id="mode" value="signal-shop">
-            单店铺搬运
-          </Radio>
+      <FormItem label="搬运模式" field="isShop" initialValue={0}>
+        <RadioGroup type="button">
+          <Radio value={0}>多商品搬运</Radio>
+          <Radio value={1}>单店铺搬运</Radio>
         </RadioGroup>
       </FormItem>
 
@@ -51,11 +47,11 @@ export default async function WorkplaceTaskCreator() {
         </div>
       </FormItem>
 
-      <FormItem label="过滤已搬商品" field="filter" triggerPropName="checked">
+      <FormItem label="过滤已搬商品" field="isFilter" initialValue={true} triggerPropName="checked">
         <Switch type="line" />
       </FormItem>
 
-      <FormItem label="货源平台" field="platform" tooltip="请选择链接来源平台~">
+      <FormItem label="货源平台" field="platform" tooltip="请选择链接来源平台~" initialValue={1}>
         <Card
           className="w-[200px] bg-[var(--color-primary-light-1)] rounded-sm cursor-not-allowed"
           title={<Checkbox defaultChecked>1688</Checkbox>}
@@ -68,14 +64,7 @@ export default async function WorkplaceTaskCreator() {
         <Divider />
       </div>
 
-      <div className="flex-center">
-        <Button
-          htmlType="submit"
-          className={'w-[365px] h-[48px] rounded-full shadow-md mt-4 font-medium text-base ' + style['main-button']}
-        >
-          立即复制商品
-        </Button>
-      </div>
+      <SubmitButton />
 
       <FormItem
         className="flex-center mt-2"
@@ -92,7 +81,7 @@ export default async function WorkplaceTaskCreator() {
         <Checkbox value="agree" className="mr-2 w-full flex-center">
           <TypographyText className="text-sm">
             我已知晓平台相关规范, 使用者请获取授权后进行商品复制
-            <Link className="text-blue-500 ml-1" href="/workbench/carry/create-task/usage">
+            <Link className="text-blue-500 ml-1" href="/workbench/carry/create-task/usage" scroll={false}>
               免责声明
             </Link>
           </TypographyText>

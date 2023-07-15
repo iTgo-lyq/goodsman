@@ -70,6 +70,22 @@ ul::-webkit-scrollbar-thumb {
   border-radius: 8px;
 }
 
+.arco-select-popup-inner::-webkit-scrollbar {
+  width: 6px;
+}
+
+.arco-select-popup-inner::-webkit-scrollbar-track-piece {
+  background-color: var(--color-bg-2);
+  border-radius: 8px;
+}
+
+.arco-select-popup-inner::-webkit-scrollbar-thumb {
+  background-color: var(--color-text-3);
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  border-radius: 8px;
+}
+
 .arco-form-item-symbol > svg {
   display: inline-block;
 }
@@ -78,4 +94,9 @@ ul::-webkit-scrollbar-thumb {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.arco-cascader-popup .arco-cascader-popup-inner {
+  /** height: auto !important; */
+  max-height: 200px;
 }

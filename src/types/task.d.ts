@@ -37,12 +37,10 @@ declare interface TaskConfig {
   freshRotRefund: boolean; //坏了包退
   brokenRefund: boolean; //破损包退
   allergyRefund: boolean; //过敏包退
-  category: [
-    { firstCategoryId: number; firstCategory: string },
-    { secondCategoryId: number; firstCategory: string },
-    { thirdCategoryId: number; firstCategory: string },
-    { forthCategoryId: number; firstCategory: string },
-  ];
+  category: {
+    categoryName: string;
+    categoryId: string;
+  };
   // 类目下的属性与属性值
   prop: {
     propId: string;
@@ -55,10 +53,12 @@ declare interface TaskConfig {
 }
 
 declare interface RecordItem {
-  id: number;
-  source: { title: string; image: string; url: string };
-  status: string;
-  link: string;
-  log: string;
-  createAt: string;
+  commodityId: number;
+  url: string;
+  title: string;
+  image: string;
+  newUrl: string;
+  status: '执行失败';
+  message: '上传商品图片失败';
+  startTime: number;
 }

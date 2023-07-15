@@ -7,7 +7,7 @@ import { Statistic, TypographyText, TypographyTitle } from '@arco-design/web-rea
 import { Button, Card, IconCaretUp, IconTheShoppingCart } from '@arco-design/web-react/server';
 
 export default async function Workplace(props: PropsWithChildren<{ modal?: ReactNode }>) {
-  const userInfo = await getServerUserInfo();
+  const { data: userInfo } = await getServerUserInfo();
 
   return (
     <div className="relative">

@@ -1,5 +1,5 @@
 import { PropsWithChildren, ReactNode } from 'react';
-import { getServerSiderCollapsed, setMenuCollapsed } from '@/server';
+import { getSiderCollapsed, setMenuCollapsed } from '@/server';
 import Link from 'next/link';
 import { LayoutSider, MenuItem } from '@arco-design/web-react/client';
 import {
@@ -45,8 +45,8 @@ const ROUTES = [
   },
 ];
 
-export default function RootLayout(props: PropsWithChildren & { fullPage: ReactNode }) {
-  const collapsed = getServerSiderCollapsed();
+export default async function RootLayout(props: PropsWithChildren & { fullPage: ReactNode }) {
+  const collapsed = await getSiderCollapsed();
 
   return (
     <Layout className="full">

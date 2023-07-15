@@ -56,7 +56,7 @@ interface CategoryPropConfigParam {
 
   propValueMaximum?: number; // 最大可选数量
   propInputConfig?: CategoryPropInputConfigParam; // 输入规则
-  unitProp?: AggregateUnitPropDTO[]; // 单位属性结构体
+  unitProps?: AggregateUnitPropDTO[]; // 单位属性结构体
   // TODO: 含义不明, 无法实现
   customInput?: boolean; // 是否支持自定义属性输入
 

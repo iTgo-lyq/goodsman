@@ -9,7 +9,7 @@ export default function LinksInput() {
         return value.mode === 'signal-shop' ? (
           <FormItem
             label="店铺链接"
-            field="shopLink"
+            field="url"
             tooltip="请粘贴您的货源店铺链接~"
             rules={[{ required: true, message: '店铺链接是必填项!' }]}
             shouldUpdate
@@ -19,7 +19,7 @@ export default function LinksInput() {
         ) : (
           <FormItem
             label="商品链接"
-            field="goodsLinkList"
+            field="url"
             tooltip="请粘贴您的货源商品链接~"
             rules={[{ required: true, message: '商品链接是必填项!' }]}
           >

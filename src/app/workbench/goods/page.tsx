@@ -1,61 +1,61 @@
-import { Button, ButtonGroup } from '@arco-design/web-react/client';
-import { IconRefresh } from '@arco-design/web-react/server';
-import GoodsTable from './GoodsTable';
-import { getServerGoodsTable } from '@/server/store';
+import { SERVER_GOODS_STATUS_TITLE } from '@/constants';
 import { pickSearchParam } from '@/utils';
-import { deleteGoods, delistGoods, listGoods, refreshFilterGoods } from '@/server/action';
+import { getServerGoodsTable } from '@/server';
+import { Cascader, DateRangePicker, Form, FormItem, InputTag, TypographyTitle } from '@arco-design/web-react/client';
+import { Card, Divider, IconRefresh, IconSearch } from '@arco-design/web-react/server';
+import { QueryButton } from '@/components/client';
+import GoodsTable from './GoodsTable';
 
-// const data: any[] = new Array(24)
-//   .fill({
-//     id: 1,
-//     source: {
-//       title: '我是商品名称',
-//       image: 'https://cbu01.alicdn.com/img/ibank/O1CN012HRVaC28L7bsIvdi3_!!2929267915-0-cib.jpg',
-//       url: 'https://detail.1688.com/offer/671494184410.html?spm=a26e3.26073308.kye4ys79.3.a76d673apelkHE&cosite=-&tracelog=p4p&_p_isad=1&clickid=7fadf851107a4cf19e1408a8cb53f141&sessionid=c67e6134f42be8fe06de26b74d73776f',
-//     },
-//     status: '运行中',
-//     link: '',
-//     log: 'ahahha',
-//     createAt: '2023.12',
-//   })
-//   .map((it, idx) => ({ ...it, id: idx }));
+const StatusOptions = Object.entries(SERVER_GOODS_STATUS_TITLE).map(([status, title]) => ({
+  label: title,
+  value: status,
+}));
 
 export default async function RecordsDetail(props: any) {
-  const selectedRowKeys = pickSearchParam<number[]>(props, 'selectedRowKeys', [], 'num');
-  const status = pickSearchParam<string>(props, 'status', '');
-  const createAtRange = pickSearchParam<string[]>(props, 'createAtRange', [], 'str');
-  const itemKeyword = pickSearchParam<string>(props, 'itemKeyword', '');
-  const shopKeyword = pickSearchParam<string>(props, 'shopKeyword', '');
+  const status = pickSearchParam(props, 'status', [], 'num');
+  const createAtRange = pickSearchParam(props, 'createAtRange', [], 'str');
+  const itemKeyword = pickSearchParam(props, 'itemKeyword', '');
+  const shopKeyword = pickSearchParam(props, 'shopKeyword', '');
+
   const data = await getServerGoodsTable({ status, createAtRange, itemKeyword, shopKeyword });
 
   return (
-    <form>
-      <div className="flex justify-between">
-        <div>
-          <Button
-            className="mr-4"
-            type="primary"
-            formAction={listGoods}
-            htmlType="submit"
-            disabled={!selectedRowKeys.length}
-          >
-            上架商品({selectedRowKeys.length})
-          </Button>
-          <Button className="mr-4" formAction={delistGoods} htmlType="submit" disabled={!selectedRowKeys.length}>
-            下架商品({selectedRowKeys.length})
-          </Button>
-          <Button status="danger" formAction={deleteGoods} htmlType="submit" disabled={!selectedRowKeys.length}>
-            删除商品({selectedRowKeys.length})
-          </Button>
-        </div>
-        <ButtonGroup>
-          <Button htmlType="submit" formAction={refreshFilterGoods} icon={<IconRefresh />}>
-            刷新
-          </Button>
-          {/* <Button icon={<IconSelectAll />}>全选</Button> */}
-        </ButtonGroup>
+    <Card bordered={false}>
+      <TypographyTitle style={{ marginTop: 0 }} bold heading={3}>
+        商品库
+      </TypographyTitle>
+
+      <div className="flex-row-stretch">
+        <Form className="mr-4 flex-row flex-wrap">
+          <div className="flex-1 flex-col">
+            <FormItem label="商品状态" field="status" initialValue={status.map(it => [it])}>
+              <Cascader options={StatusOptions} allowClear />
+            </FormItem>
+            <FormItem className="mb-0" field="createAtRange" label="创建时间" initialValue={createAtRange}>
+              <DateRangePicker className="w-full" />
+            </FormItem>
+          </div>
+          <div className="flex-1 flex-col last:m-0">
+            <FormItem label="商品名称" field="itemKeyword" initialValue={itemKeyword}>
+              <InputTag allowClear saveOnBlur placeholder="商品关键字" />
+            </FormItem>
+            <FormItem className="mb-0" field="shopKeyword" label="店铺名称" initialValue={shopKeyword}>
+              <InputTag allowClear saveOnBlur placeholder="店铺关键字" />
+            </FormItem>
+          </div>
+          <div className="border-l ml-4 pl-4 border-[var(--color-border-2)] flex-col-center justify-between">
+            <QueryButton form="records-filter-form" htmlType="submit" type="outline" icon={<IconSearch />}>
+              搜索任务
+            </QueryButton>
+            <QueryButton form="records-filter-form" htmlType="reset" icon={<IconRefresh />}>
+              清空查询
+            </QueryButton>
+          </div>
+        </Form>
       </div>
-      <GoodsTable data={data || []} />
-    </form>
+      <Divider />
+
+      <GoodsTable data={data.data?.records || []} />
+    </Card>
   );
 }
