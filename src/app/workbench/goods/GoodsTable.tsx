@@ -103,7 +103,7 @@ export default function GoodsTable(props: GoodsTableProps) {
         className="mt-4"
         border={false}
         data={props.data}
-        pagination={{ showTotal: true, sizeCanChange: true, pageSize: 3 }}
+        pagination={{ showTotal: true, sizeCanChange: true }}
         rowSelection={{
           selectedRowKeys: selectedRowKeys,
           type: 'checkbox',
@@ -134,12 +134,20 @@ export default function GoodsTable(props: GoodsTableProps) {
           },
           {
             title: '操作',
-            render() {
-              return (
-                <Link href={HREF_KS_GOODS_EDIT}>
-                  <Button>编辑</Button>
-                </Link>
-              );
+            render(_, item) {
+              if (item.status == '已上架' || item.status == '未上架')
+                return (
+                  <Link href={HREF_KS_GOODS_EDIT}>
+                    <Button>编辑</Button>
+                  </Link>
+                );
+              else if (item.status == '未上传')
+                return (
+                  <Link href={HREF_KS_GOODS_EDIT}>
+                    <Button>上传</Button>
+                  </Link>
+                );
+              else return <span></span>;
             },
           },
         ]}
