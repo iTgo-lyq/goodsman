@@ -12,7 +12,7 @@ interface Props {
   data: RecordItem[];
 }
 
-export default async function RecordsDetailTable(props: Props) {
+export default function RecordsDetailTable(props: Props) {
   const [_, setSearchParams] = useQueryString();
   return (
     <Table

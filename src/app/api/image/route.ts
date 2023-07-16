@@ -25,6 +25,8 @@ export async function POST(request: NextRequest) {
 
   const data: any = await result.json();
 
+  console.log(`[imageUpload] end`, JSON.stringify(data));
+
   if (data.code !== CODE_SUCCESS) {
     return new NextResponse(null, { status: 500, statusText: data.message });
   } else {

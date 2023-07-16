@@ -1,3 +1,4 @@
+import { HREF_KS_SERVICE_BUY } from '@/constants';
 import { getServerUserInfo, loginOut } from '@/server';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -28,7 +29,7 @@ export default async function UserInfo(props: { className?: string }) {
     <Menu className="shadow-md">
       <MenuItem key="login">
         <IconImport />
-        <Link href="/login">立即登录</Link>
+        <Link href={HREF_KS_SERVICE_BUY}>立即登录</Link>
       </MenuItem>
     </Menu>
   );

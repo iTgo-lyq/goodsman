@@ -23,6 +23,7 @@ export const CATEGORY_PROP_OPTION_GROUP_MAX_CURSOR = 2000;
 export const URL_REGEX = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\*\+,;=.]+$/;
 export const EMAIL_REGEX = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
 
+export const HREF_KS_SERVICE_BUY = 'https://fuwu.kwaixiaodian.com/detail?id=20850957671461';
 export const HREF_KS_GOODS_EDIT = 'https://s.kwaixiaodian.com/zone/goods/list';
 export const HREF_KS_AUTH_PC =
   'https://open.kwaixiaodian.com/oauth/authorize?app_id=ks719168568185721419&redirect_uri=https%3A%2F%2Fgoodsman.tgozzz.cn%2Fauth&scope=merchant_scm,merchant_item,user_info,merchant_video,merchant_material,merchant_servicemarket,merchant_user,merchant_comment,merchant_logistics&response_type=code';

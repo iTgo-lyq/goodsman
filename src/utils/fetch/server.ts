@@ -18,7 +18,7 @@ export async function serverFetch<T>(url: string, init?: RequestInit | undefined
 
   try {
     const responseBody = await response.json();
-    console.log(`[serverFetch] end ${url}`, responseBody);
+    console.log(`[serverFetch] end ${url}`, JSON.stringify(responseBody));
 
     return {
       code: responseBody.code,
