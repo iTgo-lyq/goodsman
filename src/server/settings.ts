@@ -94,14 +94,17 @@ export async function getTaskSettings() {
   );
 
   if (response.data) {
-    clientData.category.categoryId = [response.data.category.categoryId];
-    clientData.category.categoryName = response.data.category.categoryName;
+    if (response.data.category) {
+      clientData.category.categoryId = [response.data.category.categoryId];
+      clientData.category.categoryName = response.data.category.categoryName;
+    }
 
-    clientData.prop = response.data.prop.map(it => ({
-      ...it,
-      propValue: it.propValue?.split(',').filter(Boolean) || [],
-      propValueId: it.propValueId?.split(',').filter(Boolean) || [],
-    }));
+    clientData.prop =
+      response.data.prop?.map(it => ({
+        ...it,
+        propValue: it.propValue?.split(',').filter(Boolean) || [],
+        propValueId: it.propValueId?.split(',').filter(Boolean) || [],
+      })) || [];
 
     clientData.refunds = [
       response.data.freshRotRefund ? 'freshRotRefund' : '',

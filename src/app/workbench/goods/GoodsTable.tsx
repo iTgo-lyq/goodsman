@@ -1,7 +1,9 @@
 'use client';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { HREF_KS_GOODS_EDIT } from '@/constants';
 import { useAction } from '@/utils/hooks';
 import { deleteGoods, delistGoods, listGoods } from '@/server';
+import Link from 'next/link';
 import { Button, Table, Image, Notification } from '@arco-design/web-react/client';
 import { ButtonGroup, IconRefresh, IconSelectAll } from '@arco-design/web-react/server';
 import { RefreshLink } from '@/components/client';
@@ -133,7 +135,11 @@ export default function GoodsTable(props: GoodsTableProps) {
           {
             title: '操作',
             render() {
-              return <Button>编辑</Button>;
+              return (
+                <Link href={HREF_KS_GOODS_EDIT}>
+                  <Button>编辑</Button>
+                </Link>
+              );
             },
           },
         ]}

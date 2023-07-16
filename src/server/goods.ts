@@ -1,6 +1,7 @@
 'use server';
 import qs from 'querystring';
 import serverFetch from '@/utils/fetch/server';
+import { forceRefresh } from './shared';
 
 export async function getServerGoodsTable(search: {
   status: number[];
@@ -31,30 +32,36 @@ export async function getServerGoodsTable(search: {
 
 // 上架商品
 export async function listGoods(selectedRowKeys: number[]) {
-  return await serverFetch('/item/list', {
+  const result = await serverFetch('/item/list', {
     method: 'POST',
     body: JSON.stringify({
       commodityIds: selectedRowKeys.map(String),
     }),
   });
+  await forceRefresh();
+  return result;
 }
 
 // 下架商品
 export async function delistGoods(selectedRowKeys: number[]) {
-  return await serverFetch('/item/delist', {
+  const result = await serverFetch('/item/delist', {
     method: 'POST',
     body: JSON.stringify({
       commodityIds: selectedRowKeys.map(String),
     }),
   });
+  await forceRefresh();
+  return result;
 }
 
 // 批量删除
 export async function deleteGoods(selectedRowKeys: number[]) {
-  return await serverFetch('/item/delete', {
+  const result = await serverFetch('/item/delete', {
     method: 'POST',
     body: JSON.stringify({
       commodityIds: selectedRowKeys.map(String),
     }),
   });
+  await forceRefresh();
+  return result;
 }

@@ -1,8 +1,9 @@
 'use client';
+import dayjs from 'dayjs';
+import { HREF_KS_GOODS_EDIT } from '@/constants';
+import { useQueryString } from '@/utils/hooks';
 import Link from 'next/link';
 import { Button, Table, Image, TypographyText } from '@arco-design/web-react/client';
-import { useQueryString } from '@/utils/hooks';
-import dayjs from 'dayjs';
 
 interface Props {
   pageNumber: number;
@@ -75,7 +76,11 @@ export default async function RecordsDetailTable(props: Props) {
         {
           title: '操作',
           render() {
-            return <Button>编辑</Button>;
+            return (
+              <Link href={HREF_KS_GOODS_EDIT}>
+                <Button>编辑</Button>
+              </Link>
+            );
           },
         },
       ]}
