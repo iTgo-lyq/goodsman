@@ -19,7 +19,7 @@ export default function GoodsTable(props: GoodsTableProps) {
     () => listGoods(selectedRowKeys),
     () => {
       Notification.success({
-        content: '批量上架成功!',
+        content: '批量操作完成!',
       });
       setSelectedRowKeys([]);
     },
@@ -30,7 +30,7 @@ export default function GoodsTable(props: GoodsTableProps) {
     () => delistGoods(selectedRowKeys),
     () => {
       Notification.success({
-        content: '批量下架成功!',
+        content: '批量操作完成!',
       });
       setSelectedRowKeys([]);
     },
@@ -41,7 +41,7 @@ export default function GoodsTable(props: GoodsTableProps) {
     () => deleteGoods(selectedRowKeys),
     () => {
       Notification.success({
-        content: '批量删除成功!',
+        content: '批量操作完成!',
       });
       setSelectedRowKeys([]);
     },

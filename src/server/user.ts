@@ -1,10 +1,10 @@
 'use server';
 import { cookies } from 'next/headers';
-import { COOKIE_KEY_ACCESS_TOKEN, DEFAULT_GET_REVALIDATE } from '@/constants';
+import { BULLET_GET_REVALIDATE, COOKIE_KEY_ACCESS_TOKEN } from '@/constants';
 import serverFetch from '@/utils/fetch/server';
 
 export async function getServerUserInfo() {
-  return await serverFetch<UserInfo>('/auth/getInfo', { next: { revalidate: DEFAULT_GET_REVALIDATE / 6 } });
+  return await serverFetch<UserInfo>('/auth/getInfo', { next: { revalidate: BULLET_GET_REVALIDATE } });
 }
 
 export async function loginOut() {

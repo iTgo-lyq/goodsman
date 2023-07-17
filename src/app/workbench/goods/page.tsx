@@ -45,7 +45,7 @@ export default async function RecordsDetail(props: any) {
           </div>
           <div className="border-l ml-4 pl-4 border-[var(--color-border-2)] flex-col-center justify-between">
             <QueryButton form="records-filter-form" htmlType="submit" type="outline" icon={<IconSearch />}>
-              搜索任务
+              搜索商品
             </QueryButton>
             <QueryButton form="records-filter-form" htmlType="reset" icon={<IconRefresh />}>
               清空查询

@@ -1,4 +1,4 @@
-import { getServerUserInfo, postTask } from '@/server';
+import { getServerUserInfo } from '@/server';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Form, FormItem, Radio, RadioGroup, Checkbox, Switch, TypographyText } from '@arco-design/web-react/client';

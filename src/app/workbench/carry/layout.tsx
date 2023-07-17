@@ -1,5 +1,5 @@
 import { PropsWithChildren, ReactNode } from 'react';
-import { HREF_KS_SERVICE } from '@/constants';
+import { HREF_KS_SERVICE_BUY } from '@/constants';
 import { getServerUserInfo } from '@/server';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -99,7 +99,7 @@ export default async function Workplace(props: PropsWithChildren<{ modal?: React
         {props.children}
       </Card>
 
-      <Link href={userInfo ? HREF_KS_SERVICE : '/login/mobile'}>
+      <Link href={HREF_KS_SERVICE_BUY}>
         <Button
           className="absolute mt-8 right-0 top-0 -translate-y-[78px]"
           icon={<IconTheShoppingCart />}
