@@ -141,12 +141,6 @@ export default function GoodsTable(props: GoodsTableProps) {
                     <Button>编辑</Button>
                   </Link>
                 );
-              else if (item.status == '未上传')
-                return (
-                  <Link href={HREF_KS_GOODS_EDIT}>
-                    <Button>上传</Button>
-                  </Link>
-                );
               else return <span></span>;
             },
           },

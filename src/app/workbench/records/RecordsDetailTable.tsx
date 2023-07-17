@@ -75,12 +75,13 @@ export default function RecordsDetailTable(props: Props) {
         },
         {
           title: '操作',
-          render() {
-            return (
-              <Link href={HREF_KS_GOODS_EDIT}>
-                <Button>编辑</Button>
-              </Link>
-            );
+          render(_, item) {
+            if (item.status == '执行成功')
+              return (
+                <Link href={HREF_KS_GOODS_EDIT}>
+                  <Button>编辑</Button>
+                </Link>
+              );
           },
         },
       ]}

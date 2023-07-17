@@ -58,7 +58,7 @@ declare interface RecordItem {
   title: string;
   image: string;
   newUrl: string;
-  status: '执行失败';
+  status: '执行失败' | '执行成功' | '执行中';
   message: '上传商品图片失败';
   startTime: number;
 }
