@@ -38,7 +38,7 @@ const FieldComponentMap: Record<CategoryPropConfigParam['propInputType'], FC<any
   INVALID_PROP_INPUT_TYPE: KsTextInput,
   NUMBER: KsNumberInput,
   RADIO: KsRadioGroup,
-  TEXT: KsNumberInput,
+  TEXT: KsTextInput,
   URL: KsTextInput,
 };
 
