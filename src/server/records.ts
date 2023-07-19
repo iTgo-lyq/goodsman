@@ -42,7 +42,7 @@ export async function getServerRecordDetailTable(search: {
   }>(
     '/get/moveRecord?' +
       qs.stringify({
-        current: (search.pageNumber - 1) * search.pageSize + 1,
+        current: search.pageNumber,
         size: search.pageSize,
         status: search.status[0] || 0,
         name: search.itemKeyword[0],
