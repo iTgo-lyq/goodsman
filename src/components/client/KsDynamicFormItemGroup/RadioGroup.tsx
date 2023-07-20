@@ -2,8 +2,8 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import { CATEGORY_PROP_OPTION_GROUP_DEFAULT_SIZE, CATEGORY_PROP_OPTION_GROUP_MAX_CURSOR } from '@/constants';
 import { useSwrAction } from '@/utils/hooks';
-import { getCategoryPropValue } from '@/server';
 import { Cascader, List, Spin, useFormContext } from '@arco-design/web-react/client';
+import { SERVER_ACTION } from '@/server/declare';
 import style from './index.module.css';
 
 export default function KsRadioGroup(
@@ -17,7 +17,7 @@ export default function KsRadioGroup(
   const [options, setOptions] = useState<CategoryPropValueParam[]>([]);
   const [cursor, setCursor] = useState(0);
   const [propValue, setPropValue] = useState('');
-  const { data: latestData } = useSwrAction(getCategoryPropValue, {
+  const { data: latestData } = useSwrAction(SERVER_ACTION.getCategoryPropValue, {
     categoryId: props.categoryId,
     propId: props.propId,
     cursor,

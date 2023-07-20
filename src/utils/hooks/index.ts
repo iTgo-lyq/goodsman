@@ -4,6 +4,8 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { CODE_SUCCESS, CODE_UNAUTHORIZED } from '@/constants';
 import { Notification } from '@arco-design/web-react/client';
 import { UnauthorizedNotificationContent } from '@/components/handless';
+import clientFetch from '@/utils/fetch/client';
+import { ServerAction } from '@/server/declare';
 
 interface SetSearchParams {
   (map: Record<string, string | string[] | number | number[] | boolean | boolean[]>): void;
@@ -41,34 +43,6 @@ export const useQueryString = () => {
   return [searchParams, setSearchParams] as const;
 };
 
-function onResult(res: ActionResult<any>) {
-  if (res.code === CODE_UNAUTHORIZED) {
-    console.error('未授权!', res);
-    Notification.error({
-      duration: 6000,
-      title: '未授权!',
-      content: UnauthorizedNotificationContent(),
-    });
-  } else if (res.code !== CODE_SUCCESS) {
-    console.error('服务错误!', res);
-    Notification.error({
-      title: res.title || '服务错误!',
-      content: `ACTION MSG: ${res.msg || '未知原因'}`,
-    });
-  }
-}
-
-const actionKeyMap = new WeakMap();
-function genSwrActionKey(action: any) {
-  if (actionKeyMap.has(action)) {
-    return actionKeyMap.get(action);
-  } else {
-    const key = Date.now() + '' + Math.floor(Math.random() * 1000);
-    actionKeyMap.set(action, key);
-    return key;
-  }
-}
-
 /**
  * 适用于服务端操作
  */
@@ -86,7 +60,20 @@ export function useAction<T, F extends (...args: any) => Promise<ActionResult<T>
 
         const res = await action.apply(null, args);
 
-        onResult(res);
+        if (res.code === CODE_UNAUTHORIZED) {
+          console.error('未授权!', res);
+          Notification.error({
+            duration: 6000,
+            title: '未授权!',
+            content: UnauthorizedNotificationContent(),
+          });
+        } else if (res.code !== CODE_SUCCESS) {
+          console.error('服务错误!', res);
+          Notification.error({
+            title: res.title || '服务错误!',
+            content: `ACTION MSG: ${res.msg || '未知原因'}`,
+          });
+        }
 
         if (res.code === CODE_SUCCESS) onSuccess?.(res.data);
 
@@ -101,17 +88,35 @@ export function useAction<T, F extends (...args: any) => Promise<ActionResult<T>
 /**
  * 适用于从服务端拉取数据, 并缓存, 不可缓存建议直接服务端渲染
  */
-export const useSwrAction = <F extends (...args: any) => Promise<ActionResult<any>>>(
-  action: F,
-  params?: Parameters<F>[0],
-) =>
-  _useSWR<UnwrapActionResult<UnwrapPromise<ReturnType<F>>> | undefined>(
-    [params, genSwrActionKey(action)],
-    async ([params]: [Parameters<F>[0]]) => {
-      const res = await action(params);
+export const useSwrAction = <F extends keyof ServerAction>(action: F, params?: Parameters<ServerAction[F]>[0]) =>
+  _useSWR<UnwrapActionResult<UnwrapPromise<ReturnType<ServerAction[F]>>> | undefined>(
+    [action, params],
+    async ([action, params]: any) => {
+      const response = await clientFetch<ActionResult<any>>(
+        '/api/action?' + new URLSearchParams({ method: action, params: JSON.stringify([params]) }).toString(),
+      );
 
-      onResult(res);
+      if (!response) {
+        console.error('服务错误!');
+        Notification.error({
+          duration: 6000,
+          content: '服务错误!',
+        });
+      } else if (response.code === CODE_UNAUTHORIZED) {
+        console.error('未授权!', response);
+        Notification.error({
+          duration: 6000,
+          title: '未授权!',
+          content: UnauthorizedNotificationContent(),
+        });
+      } else if (!response || response.code !== CODE_SUCCESS) {
+        console.error('服务错误!', response);
+        Notification.error({
+          title: response.title || '服务错误!',
+          content: `ACTION MSG: ${response.msg || '未知原因'}`,
+        });
+      }
 
-      return res.data;
+      return response?.data as any;
     },
   );

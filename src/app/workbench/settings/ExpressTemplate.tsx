@@ -5,12 +5,12 @@ import { useSwrAction } from '@/utils/hooks';
 import Link from 'next/link';
 import { Cascader, FormItem, Button as ClientButton } from '@arco-design/web-react/client';
 import { ButtonGroup, IconLaunch, IconRefresh, Button as HandlessButton } from '@arco-design/web-react/server';
-import { getExpressTemplate } from '@/server';
+import { SERVER_ACTION } from '@/server/declare';
 
 const FIELD_NAMES = { value: 'id', label: 'name' };
 
 export default function ExpressTemplate() {
-  const { data: templates, mutate } = useSwrAction(getExpressTemplate);
+  const { data: templates, mutate } = useSwrAction(SERVER_ACTION.getExpressTemplate);
 
   const refresh = useCallback(() => mutate(), [mutate]);
 

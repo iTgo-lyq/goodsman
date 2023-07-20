@@ -4,8 +4,7 @@ import { useSwrAction } from '@/utils/hooks';
 import { Cascader, FormItem, Button, useFormContext, useWatch } from '@arco-design/web-react/client';
 import { IconRefresh } from '@arco-design/web-react/server';
 import { KsDynamicFormItemGroup } from '@/components/client';
-import { DEFAULT_TASK_SETTINGS_FROM_VALUE } from '@/constants';
-import { getCategoryList, getCategoryPropList } from '@/server';
+import { SERVER_ACTION } from '@/server/declare';
 
 function map2Option(item: CategoryItem) {
   return {
@@ -27,11 +26,11 @@ function flatTree(items: CategoryItem[], idMap: Record<string, CategoryItem> = {
 
 export default function CategoryInput() {
   const { form } = useFormContext();
-  const { data: categories = [], mutate: mutateCategories } = useSwrAction(getCategoryList);
+  const { data: categories = [], mutate: mutateCategories } = useSwrAction(SERVER_ACTION.getCategoryList);
   const categoryMap = useMemo(() => flatTree(categories), [categories]);
   const categoryIds: string[] = useWatch('category.categoryId', form) || [];
   const categoryId = useMemo(() => categoryIds[categoryIds.length - 1], [categoryIds]);
-  const { data: categoryPropList = [], isLoading } = useSwrAction(getCategoryPropList, categoryId || '');
+  const { data: categoryPropList = [], isLoading } = useSwrAction(SERVER_ACTION.getCategoryPropList, categoryId || '');
 
   const InputComponent = useMemo(
     () => (props: any) => {
