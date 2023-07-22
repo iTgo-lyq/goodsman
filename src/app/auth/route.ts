@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
 
   const req = await serverFetch<string>('/auth?' + qs.stringify({ code: code }));
 
-  if (req.data) cookies().set(COOKIE_KEY_ACCESS_TOKEN, req.data);
+  if (req.data) cookies().set(COOKIE_KEY_ACCESS_TOKEN, req.data, { expires: new Date('2999-10-05') });
 
   redirect('/');
 }

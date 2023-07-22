@@ -19,17 +19,17 @@ export async function getSiderCollapsed() {
 }
 
 export async function setThemeAuto() {
-  cookies().set('theme', THEME.AUTO);
+  cookies().set('theme', THEME.AUTO, { expires: new Date('2999-10-05') });
 }
 
 export async function setThemeDark() {
-  cookies().set('theme', THEME.DARK);
+  cookies().set('theme', THEME.DARK, { expires: new Date('2999-10-05') });
 }
 
 export async function setThemeLight() {
-  cookies().set('theme', THEME.LIGHT);
+  cookies().set('theme', THEME.LIGHT, { expires: new Date('2999-10-05') });
 }
 
 export async function setMenuCollapsed(data: FormData) {
-  cookies().set('menu-collapsed', data.get('menu-collapsed') as string);
+  cookies().set('menu-collapsed', data.get('menu-collapsed') as string, { expires: new Date('2999-10-05') });
 }

@@ -6,7 +6,7 @@ import { cookies } from 'next/headers';
 import { CODE_SUCCESS, COOKIE_KEY_CREATE_TASK_FORM_DATA } from '@/constants';
 
 export async function saveCreateTaskFormData(data: { isShop: number; url: string[] }) {
-  cookies().set(COOKIE_KEY_CREATE_TASK_FORM_DATA, JSON.stringify(data));
+  cookies().set(COOKIE_KEY_CREATE_TASK_FORM_DATA, JSON.stringify(data), { expires: new Date('2999-10-05') });
 }
 
 /**

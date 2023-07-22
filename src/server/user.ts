@@ -12,7 +12,7 @@ export async function loginOut() {
 }
 
 export async function setAgreement(agree: boolean) {
-  cookies().set(COOKIE_KEY_AGREEMENT, agree ? '1' : '0');
+  cookies().set(COOKIE_KEY_AGREEMENT, agree ? '1' : '0', { expires: new Date('2999-10-05') });
   return {
     code: CODE_SUCCESS,
     msg: agree ? '同意声明!' : '不同意声明!',
