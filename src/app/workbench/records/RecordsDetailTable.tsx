@@ -1,5 +1,6 @@
 'use client';
 import dayjs from 'dayjs';
+import { usePathname } from 'next/navigation';
 import { HREF_KS_GOODS_EDIT } from '@/constants';
 import { useQueryString } from '@/utils/hooks';
 import Link from 'next/link';
@@ -13,7 +14,15 @@ interface Props {
 }
 
 export default function RecordsDetailTable(props: Props) {
-  const [_, setSearchParams] = useQueryString();
+  const [searchParams, setSearchParams] = useQueryString();
+  const pathname = usePathname();
+
+  const genEditHref = (id: number) => {
+    const query = new URLSearchParams(searchParams as any);
+    query.append('editId', String(id));
+    return pathname + '?' + query.toString();
+  };
+
   return (
     <Table
       rowKey="commodityId"
@@ -76,12 +85,15 @@ export default function RecordsDetailTable(props: Props) {
         {
           title: '操作',
           render(_, item) {
-            if (item.status == '执行成功')
-              return (
-                <Link href={HREF_KS_GOODS_EDIT}>
-                  <Button>编辑</Button>
-                </Link>
-              );
+            return item.operation === 1 ? (
+              <Link href={HREF_KS_GOODS_EDIT}>
+                <Button>编辑</Button>
+              </Link>
+            ) : item.operation === 2 ? (
+              <Link href={genEditHref(item.commodityId)}>
+                <Button>手动匹配类目后搬家</Button>
+              </Link>
+            ) : null;
           },
         },
       ]}

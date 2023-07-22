@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { Button, Table, Image, Notification } from '@arco-design/web-react/client';
 import { ButtonGroup, IconRefresh, IconSelectAll } from '@arco-design/web-react/server';
 import { RefreshLink } from '@/components/client';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 interface GoodsTableProps {
   data: GoodsItem[];
@@ -57,6 +58,15 @@ export default function GoodsTable(props: GoodsTableProps) {
   useEffect(() => {
     setSelectedRowKeys(selectedRowKeys.filter(item => props.data.find(it => it.commodityId === item)));
   }, [props.data]);
+
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
+  const genEditHref = (id: number) => {
+    const query = new URLSearchParams(searchParams as any);
+    query.append('editId', String(id));
+    return pathname + '?' + query.toString();
+  };
 
   return (
     <>
@@ -135,13 +145,15 @@ export default function GoodsTable(props: GoodsTableProps) {
           {
             title: '操作',
             render(_, item) {
-              if (item.status == '已上架' || item.status == '未上架')
-                return (
-                  <Link href={HREF_KS_GOODS_EDIT}>
-                    <Button>编辑</Button>
-                  </Link>
-                );
-              else return <span></span>;
+              return item.operation === 1 ? (
+                <Link href={HREF_KS_GOODS_EDIT}>
+                  <Button>编辑</Button>
+                </Link>
+              ) : item.operation === 2 ? (
+                <Link href={genEditHref(item.commodityId)}>
+                  <Button>手动匹配类目后搬家</Button>
+                </Link>
+              ) : null;
             },
           },
         ]}

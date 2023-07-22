@@ -1,4 +1,5 @@
 @import '@arco-design/web-react/dist/css/arco.min.css';
+@import './driver.css';
 
 @tailwind base;
 @tailwind components;
@@ -99,4 +100,8 @@ ul::-webkit-scrollbar-thumb {
 .arco-cascader-popup .arco-cascader-popup-inner {
   /** height: auto !important; */
   max-height: 200px;
+}
+
+.p-0 .arco-modal-content {
+  padding: 0px !important;
 }

@@ -71,7 +71,7 @@ export function useAction<T, F extends (...args: any) => Promise<ActionResult<T>
           console.error('服务错误!', res);
           Notification.error({
             title: res.title || '服务错误!',
-            content: `ACTION MSG: ${res.msg || '未知原因'}`,
+            content: `${res.msg || '未知原因'}`,
           });
         }
 

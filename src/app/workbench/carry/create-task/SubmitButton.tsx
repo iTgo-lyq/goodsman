@@ -1,7 +1,10 @@
 'use client';
-import { postTask } from '@/server';
-import { Button, Notification, useFormContext } from '@arco-design/web-react/client';
+import { useEffect } from 'react';
+import { postTask, saveCreateTaskFormData } from '@/server';
 import { useAction } from '@/utils/hooks';
+import Link from 'next/link';
+import { Button, Notification, useFormContext, useWatch } from '@arco-design/web-react/client';
+import { IconLaunch } from '@arco-design/web-react/server';
 import style from './index.module.css';
 
 export default function SubmitButton() {
@@ -11,23 +14,52 @@ export default function SubmitButton() {
       try {
         await form.validate();
         return postTask(form.getFields() as any);
-      } catch (error) {
-        console.log(error);
+      } catch (error: any) {
+        error.errors ? console.log('form error', error.errors) : console.log('submit error', error);
+        return error.errors
+          ? {
+              code: -1,
+              title: '请检查表单项!',
+              msg: error.errors.policy
+                ? '需要先阅读并同意声明.'
+                : error.errors.url
+                ? '请填写商品链接/店铺链接.'
+                : '校验失败',
+            }
+          : {
+              code: -1,
+              title: '提交表单失败!',
+              msg: '验证错误',
+            };
       }
-      return {
-        code: -1,
-        msg: '验证错误',
-        title: '提交表单失败!',
-      };
     },
     () => {
       Notification.success({
-        content: '任务开始执行!',
+        title: '任务开始执行~',
+        content: (
+          <Link href="/workbench/records">
+            <Button style={{ padding: 0 }} type="text" size="small" icon={<IconLaunch />}>
+              立即查看!
+            </Button>
+          </Link>
+        ),
       });
       form.resetFields('url');
     },
     [form],
   );
+
+  const isShopValue = useWatch('isShop');
+  const urlValue = useWatch('url');
+
+  useEffect(() => {
+    const onUnload = () => saveCreateTaskFormData({ isShop: isShopValue, url: urlValue });
+    window.addEventListener('beforeunload', onUnload);
+    return () => {
+      window.removeEventListener('beforeunload', onUnload);
+      onUnload();
+    };
+  }, [isShopValue, urlValue]);
 
   return (
     <div className="flex-center">

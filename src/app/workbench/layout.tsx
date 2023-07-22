@@ -16,6 +16,7 @@ import {
 import { Logo } from '@/components/handless';
 import { BreadcrumbGroup, Search, SideMenu } from '@/components/client';
 import { MessageBox, ThemeSelector, UserInfo } from '@/components/server';
+import { DRIVER_STEP_ELE_ID_TAB_CONF, DRIVER_STEP_ELE_ID_TAB_GOODS, DRIVER_STEP_ELE_ID_TAB_RECORDS } from '@/constants';
 
 export const metadata = {
   title: '商品搬家',
@@ -24,22 +25,25 @@ export const metadata = {
 
 const ROUTES = [
   {
-    id: 'carry',
+    route: 'carry',
     icon: <IconCommon />,
     content: '商品搬家',
   },
   {
-    id: 'settings',
+    id: DRIVER_STEP_ELE_ID_TAB_CONF,
+    route: 'settings',
     icon: <IconSettings />,
     content: '搬家配置',
   },
   {
-    id: 'records',
+    id: DRIVER_STEP_ELE_ID_TAB_RECORDS,
+    route: 'records',
     icon: <IconFile />,
     content: '搬家记录',
   },
   {
-    id: 'goods',
+    id: DRIVER_STEP_ELE_ID_TAB_GOODS,
+    route: 'goods',
     icon: <IconApps />,
     content: '商品管理',
   },
@@ -63,8 +67,8 @@ export default async function RootLayout(props: PropsWithChildren & { fullPage: 
         <LayoutSider collapsed={!!collapsed}>
           <SideMenu>
             {ROUTES.map(it => (
-              <Link className="full" href={`/workbench/${it.id}`} key={it.id}>
-                <MenuItem key={it.id}>
+              <Link id={it.id} className="full" href={`/workbench/${it.route}`} key={it.route}>
+                <MenuItem key={it.route}>
                   {it.icon}
                   {it.content}
                 </MenuItem>
@@ -82,7 +86,7 @@ export default async function RootLayout(props: PropsWithChildren & { fullPage: 
           {props.children}
           <div className="flex-grow"></div>
           <Layout.Footer className="mt-6 flex-center">
-            <IconCopyright className="mr-2" /> 傻大黑粗
+            <IconCopyright className="mr-2" /> 快商品
           </Layout.Footer>
         </Layout.Content>
       </Layout>

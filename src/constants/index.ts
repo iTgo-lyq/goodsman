@@ -15,6 +15,13 @@ export const DEFAULT_GET_REVALIDATE = 3 * 60;
 export const BULLET_GET_REVALIDATE = 3;
 
 export const COOKIE_KEY_ACCESS_TOKEN = 'access_token';
+export const COOKIE_KEY_AGREEMENT = 'agreement';
+export const COOKIE_KEY_CREATE_TASK_FORM_DATA = 'create_task_form_data';
+export const DRIVER_STEP_ELE_ID_FORM_URL = 'step-form-url';
+export const DRIVER_STEP_ELE_ID_FORM_CONF = 'step-form-conf';
+export const DRIVER_STEP_ELE_ID_TAB_CONF = 'step-tab-conf';
+export const DRIVER_STEP_ELE_ID_TAB_RECORDS = 'step-tab-records';
+export const DRIVER_STEP_ELE_ID_TAB_GOODS = 'step-tab-goods';
 
 export const CODE_UNKNOWN_ERROR = -1;
 export const CODE_SUCCESS = 0;

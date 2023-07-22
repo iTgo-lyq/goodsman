@@ -41,7 +41,7 @@ export default function ExpressTemplate() {
   );
 
   return (
-    <FormItem label="运费模版" field="expressTemplateId" rules={[{ required: true, message: '商品类目为必填!' }]}>
+    <FormItem label="运费模版" field="expressTemplateId" rules={[{ required: true, message: '运费模版为必填!' }]}>
       <InputComponent />
     </FormItem>
   );

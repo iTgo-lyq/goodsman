@@ -24,7 +24,7 @@ function flatTree(items: CategoryItem[], idMap: Record<string, CategoryItem> = {
   return idMap;
 }
 
-export default function CategoryInput() {
+export default function CategoryInput(props: { noProps?: boolean }) {
   const { form } = useFormContext();
   const { data: categories = [], mutate: mutateCategories } = useSwrAction(SERVER_ACTION.getCategoryList);
   const categoryMap = useMemo(() => flatTree(categories), [categories]);
@@ -90,7 +90,7 @@ export default function CategoryInput() {
       <FormItem label="商品类目" field="category.categoryId" rules={[{ required: true, message: '商品类目为必填!' }]}>
         <InputComponent />
       </FormItem>
-      {categoryPropList?.length || isLoading ? (
+      {(categoryPropList?.length || isLoading) && !props.noProps ? (
         <KsDynamicFormItemGroup
           categoryId={String(categoryId!)}
           isLoading={isLoading}

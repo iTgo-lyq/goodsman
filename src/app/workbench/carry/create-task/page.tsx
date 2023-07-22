@@ -1,31 +1,42 @@
 import { getServerUserInfo } from '@/server';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Form, FormItem, Radio, RadioGroup, Checkbox, Switch, TypographyText } from '@arco-design/web-react/client';
+import { Form, FormItem, Radio, RadioGroup, Checkbox, Switch, Tooltip } from '@arco-design/web-react/client';
 import { Button, Card, Divider, IconCheck, IconClose, IconLaunch } from '@arco-design/web-react/server';
 import LinksInput from './LinksInput';
 import SubmitButton from './SubmitButton';
+import Agreement from './Agreement';
+import { COOKIE_KEY_AGREEMENT, COOKIE_KEY_CREATE_TASK_FORM_DATA, DRIVER_STEP_ELE_ID_FORM_CONF } from '@/constants';
+import { cookies } from 'next/headers';
+import AppDriver from './Driver';
 
 export default async function WorkplaceTaskCreator() {
   const { data: userInfo } = await getServerUserInfo();
 
+  const initData = JSON.parse(cookies().get(COOKIE_KEY_CREATE_TASK_FORM_DATA)?.value || '{}');
+
   return (
     <Form className="py-4" size="large">
-      <FormItem label="搬运模式" field="isShop" initialValue={0}>
+      <FormItem label="搬运模式" field="isShop" initialValue={initData.isShop || 0}>
         <RadioGroup type="button">
           <Radio value={0}>多商品搬运</Radio>
-          <Radio value={1}>单店铺搬运</Radio>
+          <Tooltip content="即将上线,敬请期待">
+            <Radio value={1} disabled>
+              单店铺搬运
+            </Radio>
+          </Tooltip>
         </RadioGroup>
       </FormItem>
 
-      <LinksInput />
+      <LinksInput initialValue={initData.url || []} />
 
       <FormItem
+        id={DRIVER_STEP_ELE_ID_FORM_CONF}
         label="商品配置"
         validateStatus={userInfo?.configuration ? 'success' : 'error'}
         help={userInfo?.configuration ? '已完成商品搬运配置!' : '必须先完成商品搬运配置!'}
       >
-        <div className="max-w-[500px] w-full flex-row-center justify-between">
+        <div className="max-w-[500px] w-full flex-row-center">
           <Switch
             type="line"
             checkedIcon={<IconCheck />}
@@ -66,27 +77,9 @@ export default async function WorkplaceTaskCreator() {
 
       <SubmitButton />
 
-      <FormItem
-        className="flex-center mt-2"
-        field="policy"
-        triggerPropName="checked"
-        rules={[
-          {
-            type: 'boolean',
-            true: true,
-            message: <div className="flex-center">请先阅读并同意免责声明!</div>,
-          },
-        ]}
-      >
-        <Checkbox value="agree" className="mr-2 w-full flex-center">
-          <TypographyText className="text-sm">
-            我已知晓平台相关规范, 使用者请获取授权后进行商品复制
-            <Link className="text-blue-500 ml-1" href="/workbench/carry/create-task/usage" scroll={false}>
-              免责声明
-            </Link>
-          </TypographyText>
-        </Checkbox>
-      </FormItem>
+      <Agreement initialValue={Boolean(Number(cookies().get(COOKIE_KEY_AGREEMENT)?.value))} />
+
+      <AppDriver show={!!userInfo?.sellerId && !userInfo.configuration} />
     </Form>
   );
 }

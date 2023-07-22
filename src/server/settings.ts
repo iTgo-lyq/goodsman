@@ -169,7 +169,42 @@ export async function updateTaskSettings(inputData: typeof DEFAULT_TASK_SETTINGS
 
   console.log('[updateTaskSettings] beforeUpdateSettings', JSON.stringify(reqData));
 
-  return await serverFetch('config/update', {
+  return await serverFetch('/config/update', {
+    method: 'POST',
+    body: JSON.stringify(reqData),
+  });
+}
+
+export async function updateTaskItemCategorySettings(
+  inputData: { id: number } & Pick<typeof DEFAULT_TASK_SETTINGS_FROM_VALUE, 'category' | 'prop' | 'match'>,
+) {
+  console.log('[updateTaskItemCategorySettings] start', JSON.stringify(inputData));
+
+  const toStr = (v: any = '') => String(v);
+
+  const reqData = {
+    commodityId: String(inputData.id),
+    category: {
+      categoryId: toStr(
+        (inputData.category.categoryId ?? DEFAULT_TASK_SETTINGS_FROM_VALUE['category']['categoryId']).pop() || '',
+      ),
+      categoryName: toStr(
+        inputData.category.categoryName ?? DEFAULT_TASK_SETTINGS_FROM_VALUE['category']['categoryName'],
+      ),
+    },
+    prop:
+      inputData.match === 1
+        ? Object.values(inputData.prop).map(it => ({
+            ...it,
+            propValueId: toStr(it.propValueId),
+            propValue: toStr(it.propValue),
+          }))
+        : [],
+  };
+
+  console.log('[updateTaskItemCategorySettings] beforeUpdateSettings', JSON.stringify(reqData));
+
+  return await serverFetch('/item/categoryByHand', {
     method: 'POST',
     body: JSON.stringify(reqData),
   });

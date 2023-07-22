@@ -3,7 +3,7 @@ import { pickSearchParam } from '@/utils';
 import { getServerGoodsTable } from '@/server';
 import { Cascader, DateRangePicker, Form, FormItem, InputTag, TypographyTitle } from '@arco-design/web-react/client';
 import { Card, Divider, IconRefresh, IconSearch } from '@arco-design/web-react/server';
-import { QueryButton } from '@/components/client';
+import { CategoryPropsEditModal, QueryButton } from '@/components/client';
 import GoodsTable from './GoodsTable';
 
 const StatusOptions = Object.entries(SERVER_GOODS_STATUS_TITLE).map(([status, title]) => ({
@@ -16,6 +16,7 @@ export default async function RecordsDetail(props: any) {
   const createAtRange = pickSearchParam(props, 'createAtRange', [], 'str');
   const itemKeyword = pickSearchParam(props, 'itemKeyword', '');
   const shopKeyword = pickSearchParam(props, 'shopKeyword', '');
+  const editId = pickSearchParam(props, 'editId', 0);
 
   const data = await getServerGoodsTable({ status, createAtRange, itemKeyword, shopKeyword });
 
@@ -56,6 +57,8 @@ export default async function RecordsDetail(props: any) {
       <Divider />
 
       <GoodsTable data={data.data?.records || []} />
+
+      <CategoryPropsEditModal editId={editId} />
     </Card>
   );
 }

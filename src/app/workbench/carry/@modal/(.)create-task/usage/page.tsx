@@ -2,19 +2,30 @@
 import { useRouter } from 'next/navigation';
 import { Modal, TypographyParagraph, TypographyTitle, Button } from '@arco-design/web-react/client';
 import style from './index.module.css';
+import { useAction } from '@/utils/hooks';
+import { setAgreement } from '@/server';
 
 export default function UsageModal() {
   const router = useRouter();
+  const [isPending, agree] = useAction(
+    () => setAgreement(true),
+    () => {
+      router.back();
+    },
+    [router],
+  );
+
   return (
     <Modal
       className={style['usage-modal']}
       visible
       title={<TypographyTitle heading={2}>软件使用免责声明</TypographyTitle>}
       footer={
-        <Button type="primary" onClick={() => router.back()}>
+        <Button type="primary" onClick={agree} loading={isPending}>
           确认
         </Button>
       }
+      onCancel={router.back}
     >
       <TypographyParagraph>
         1.未经他人合法授权，严禁使用该软件非法采集他人店铺及商品信息（包括但不限于开通与他人相同店铺、生成商品数据包传播给其他人使用）；导致的任何责任问题，由软件使用者或者使用者单位承担，与本软件制作方和运营方无关。

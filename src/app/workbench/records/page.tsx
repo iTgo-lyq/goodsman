@@ -1,9 +1,9 @@
 import { SERVER_RECORD_STATUS_TITLE } from '@/constants';
 import { pickSearchParam } from '@/utils';
-import { startLimitedTask, refreshFilterTask, getServerRecordDetailTable } from '@/server';
+import { startLimitedTask, getServerRecordDetailTable } from '@/server';
 import { Button, Card, Divider, IconRefresh, IconSearch } from '@arco-design/web-react/server';
 import { FormItem, DateRangePicker, Cascader, Form, InputTag, TypographyTitle } from '@arco-design/web-react/client';
-import { QueryButton, RefreshLink } from '@/components/client';
+import { QueryButton, RefreshLink, CategoryPropsEditModal } from '@/components/client';
 import RecordsDetailTable from './RecordsDetailTable';
 
 const StatusOptions = Object.entries(SERVER_RECORD_STATUS_TITLE).map(([status, title]) => ({
@@ -18,6 +18,7 @@ export default async function RecordsDetail(props: any) {
   const shopKeyword = pickSearchParam(props, 'shopKeyword', [], 'str');
   const pageNumber = pickSearchParam(props, 'pageNumber', 1);
   const pageSize = pickSearchParam(props, 'pageSize', 10);
+  const editId = pickSearchParam(props, 'editId', 0);
 
   const data = await getServerRecordDetailTable({
     status,
@@ -80,6 +81,7 @@ export default async function RecordsDetail(props: any) {
         pageSize={pageSize}
         pageTotal={data.data?.total}
       />
+      <CategoryPropsEditModal editId={editId} />
     </Card>
   );
 }

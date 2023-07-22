@@ -46,7 +46,7 @@ export default function LoginPage(props: PropsWithChildren) {
         {props.children}
 
         <Layout.Footer className="absolute bottom-4 w-full flex-center">
-          <IconCopyright className="mr-2" /> 傻大黑粗
+          <IconCopyright className="mr-2" /> 快商品
         </Layout.Footer>
       </div>
     </div>

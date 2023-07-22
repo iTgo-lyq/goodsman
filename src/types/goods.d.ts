@@ -5,4 +5,5 @@ declare interface GoodsItem {
   shopName: string;
   status: string;
   message: string;
+  operation: number;
 }

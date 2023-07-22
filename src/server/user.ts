@@ -1,6 +1,6 @@
 'use server';
 import { cookies } from 'next/headers';
-import { BULLET_GET_REVALIDATE, COOKIE_KEY_ACCESS_TOKEN } from '@/constants';
+import { BULLET_GET_REVALIDATE, CODE_SUCCESS, COOKIE_KEY_ACCESS_TOKEN, COOKIE_KEY_AGREEMENT } from '@/constants';
 import serverFetch from '@/utils/fetch/server';
 
 export async function getServerUserInfo() {
@@ -9,4 +9,12 @@ export async function getServerUserInfo() {
 
 export async function loginOut() {
   cookies().delete(COOKIE_KEY_ACCESS_TOKEN);
+}
+
+export async function setAgreement(agree: boolean) {
+  cookies().set(COOKIE_KEY_AGREEMENT, agree ? '1' : '0');
+  return {
+    code: CODE_SUCCESS,
+    msg: agree ? '同意声明!' : '不同意声明!',
+  };
 }

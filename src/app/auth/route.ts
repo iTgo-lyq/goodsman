@@ -10,12 +10,7 @@ export async function GET(request: NextRequest) {
 
   const req = await serverFetch<string>('/auth?' + qs.stringify({ code: code }));
 
-  if (req.data)
-    cookies().set(
-      COOKIE_KEY_ACCESS_TOKEN,
-      req.data ??
-        'eyJhbGciOiJIUzI1NiJ9.eyJvcGVuaWQiOiJmMTgxOTVhZmJmMDVjYzZjMTRiZjU3MjQ5ZTY1NTk0YSIsImV4cCI6MTY5MDM4MzYwMiwiaWF0IjoxNjg5Nzc4ODAyfQ.aA2EBVZ9hVvGX8YfwpeoYZZlkRzSD4wIH-twsQw8Oa8',
-    );
+  if (req.data) cookies().set(COOKIE_KEY_ACCESS_TOKEN, req.data);
 
   redirect('/');
 }

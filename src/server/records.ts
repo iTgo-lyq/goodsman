@@ -2,6 +2,12 @@
 import qs from 'querystring';
 import serverFetch from '@/utils/fetch/server';
 import { redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
+import { CODE_SUCCESS, COOKIE_KEY_CREATE_TASK_FORM_DATA } from '@/constants';
+
+export async function saveCreateTaskFormData(data: { isShop: number; url: string[] }) {
+  cookies().set(COOKIE_KEY_CREATE_TASK_FORM_DATA, JSON.stringify(data));
+}
 
 /**
  * 开始搬家任务
@@ -9,7 +15,7 @@ import { redirect } from 'next/navigation';
 export async function postTask(data: any) {
   const reqData = {
     isShop: Number(data.isShop),
-    url: data.url,
+    url: Array.isArray(data.url) ? data.url : [data.url],
     platform: 0,
     merchant: 0,
     isFilter: Number(data.isFilter),
@@ -19,6 +25,8 @@ export async function postTask(data: any) {
     method: 'POST',
     body: JSON.stringify(reqData),
   });
+
+  if (response.code === CODE_SUCCESS) cookies().delete(COOKIE_KEY_CREATE_TASK_FORM_DATA);
 
   return response;
 }
