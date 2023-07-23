@@ -149,7 +149,7 @@ export default function GoodsTable(props: GoodsTableProps) {
                 <Link href={HREF_KS_GOODS_EDIT}>
                   <Button>编辑</Button>
                 </Link>
-              ) : item.operation === 2 ? (
+              ) : item.operation === 3 ? (
                 <Link href={genEditHref(item.commodityId)}>
                   <Button>手动匹配类目后搬家</Button>
                 </Link>
