@@ -9,7 +9,7 @@ export const ASK = 'zdVGto2pjFIKDWiyN1Cusg';
 export const SSK = 'b7e354bf9ac200d95e4b3fd2e2a12597';
 
 export const SERVER_DEFAULT_HOST = 'localhost:3000';
-export const SERVER_BASE_URL = 'http://koisecret.site:6789/api';
+export const SERVER_BASE_URL = process.env.SERVER_BASE_URL || 'http://koisecret.site:6789/api';
 // 缓存时间, 单位 s
 export const DEFAULT_GET_REVALIDATE = 3 * 60;
 export const BULLET_GET_REVALIDATE = 3;
